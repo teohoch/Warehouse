@@ -1,0 +1,24 @@
+Warehouse
+
+Database
+	PostgresSQL Database will be used
+		*Development database ==> warehouse_development
+		*Testing database ==> warehouse_testing
+		*Production database ==> warehouse_production
+
+Authentication
+	3 Type of Users
+		*Internal User
+		*External User
+		*Administration
+	
+	Registration can only be done by ADMINISTRATOR
+	User registration and Log In will be managed with Devise
+	Roles will be defined with rolify
+	Authorization will be managed with CanCanCan (Continuation of CanCan)
+	
+	Basic Atributes ==>	Name
+						Last Name
+						Email
+						Password
+	
