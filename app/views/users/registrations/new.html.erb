@@ -1,0 +1,42 @@
+<h2>Registro de Nuevo Usuario</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+
+    <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true %>
+    </div>
+
+    <div class="field">
+        <%= f.label :password %>
+        <% if @validatable %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "off" %>
+    </div>
+
+    <div class="field">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    </div>
+
+    <br/>
+
+    <div class="field">
+      <%= label_tag 'role', 'Selecione el rol del Usuario:' %> <br/>
+      <%= radio_button_tag(:role, "internal") %>
+      <%= label_tag(:role_user, "Usuario Interno") %> <br/>
+      <%= radio_button_tag(:role, "external") %>
+      <%= label_tag(:role_external, "Proveedor Externo") %> <br/>
+      <%= radio_button_tag(:role, "admin") %>
+      <%= label_tag(:role_external, "Administrador") %>
+    </div>
+    <br/>
+
+    <div class="actions">
+    <%= f.submit "Sign up" %>
+    </div>
+<% end %>
+
+<%= render "users/shared/links" %>
