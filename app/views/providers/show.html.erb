@@ -1,0 +1,31 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <p>
+    <strong>Nombre</strong>
+    <%= @provider.name %>
+  </p>
+
+  <p>
+    <strong>Direccion:</strong>
+    <%= @provider.address %>
+  </p>
+
+  <p>
+    <strong>Telefono:</strong>
+    <%= @provider.phone %>
+  </p>
+
+  <p>
+    <strong>RUT:</strong>
+    <%= @provider.rut %>
+  </p>
+  <br/>
+  <div style="float:left;">
+    <%= button_to 'Editar', edit_provider_path(@provider), class: "btn", :method => :get   %>
+  </div>
+  <div style="float: left;margin-left: 2%;">
+    <%= button_to 'Regresar', providers_path, class: "btn", :method => :get   %>
+  </div>
+
+</div>

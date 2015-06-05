@@ -1,0 +1,49 @@
+<div class="container">
+    <p id="notice"><%= notice %></p>
+    <h1>Listado de Proveedores</h1>
+  <br/>
+
+    <table id="products" class="display">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Phone</th>
+          <th>Rut</th>
+          <!-- ver-->
+          <th></th>
+          <!-- editar-->
+          <% if can? :update, @provider %>
+              <th></th>
+          <% end %>
+          <!-- Eliminar-->
+          <% if can? :destroy, @provider %>
+              <th></th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @providers.each do |provider| %>
+          <tr>
+            <td><%= provider.name %></td>
+            <td><%= provider.address %></td>
+            <td><%= provider.phone %></td>
+            <td><%= provider.rut %></td>
+            <td><%= link_to 'Mostrar', provider %></td>
+            <% if can? :update, @provider %>
+                <td><%= link_to 'Editar', edit_provider_path(provider) %></td>
+            <% end %>
+            <% if can? :destroy, @provider %>
+                <td><%= link_to 'Eliminar', provider, method: :delete, data: { confirm: '¿Esta seguro?' } %></td>
+            <% end %>
+                </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+    <% if can? :create, @provider %>
+      <%= button_to 'Crear Nuevo Proveedor', new_provider_path , class: "btn", :method => :get   %>
+  <% end %>
+</div>

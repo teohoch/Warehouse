@@ -1,0 +1,77 @@
+Acceso de Usuario interno
+	Utilizacion de  Suplementos
+		Log In
+		Seleccionar Retiro Suministros
+		[Multiples veces]
+			Seleccionar Suministro
+			Seleccionar Bodega
+			Seleccionar Cantidad
+		Seleccionar Razon Retiro
+		Enviar retiro
+		
+	Establecer Stock Ideal Bodega
+		Log In
+		Seleccionar Configurar Stock Ideal
+		Seleccionar Bodega
+		[Multiples veces]
+			Seleccionar Suministro
+			Seleccionar Cantidad
+		Enviar Stock Ideal
+		
+	Generar Ordenes de Compra por Bodega
+		Log In
+		Seleccionar Bodega
+		[Interno - Generar Orden de Compra]
+		Revisar Ordenes de Compra
+			Agregar/Eliminar Articulos
+			Modificar Cantidad de Articulos
+		Aceptar Orden de Compra
+		Guardar/Imprimir Orden de Compra
+		
+	Generar Orden de Compra por Proveedor
+		Log In
+		Seleccionar Proveedor
+		Seleccionar Bodegas a Analizar
+		[Interno - Generar Orden de Compra]
+		Revisar Orden de Compra
+			Agregar/Eliminar Articulos
+			Modificar Cantidad de Articulos
+		Aceptar Orden de Compra
+		Guardar/Imprimir Orden de Compra
+	
+	Establecer Stock Ideal Sucursal
+		Log In
+		Seleccionar Configurar Stock Ideal
+		Seleccionar Sucursal
+		[Multiples veces]
+			Seleccionar Suministro
+			Seleccionar Cantidad
+		Enviar Stock Ideal
+	
+	Generar Envio a Sucursal
+		Log In
+		Seleccionar Sucursal
+		[Interno - Generar Diferencia entre Stock Ideal y real]
+		Revisar Envio a Sucursal
+			Agregar/Eliminar Articulos
+			Modificar Cantidad de Articulos
+		Aceptar Envio a Sucursal
+		Guardar/Imprimir Envio a Sucursal
+		
+	Ingresar Factura
+		Log In
+		Seleccionar Ingresar Factura
+		Seleccionar Orden de Compra Asociada
+			[Solo Admin puede ingresar factura sin orden de compra asociada]
+		Ajustar Precios de Orden de Compra a Reales
+		Ingresar Numero de Factura
+		Guardar Factura / Pagar Factura
+	
+	Pagar Factura
+		Log In
+		Seleccionar Pagar Facturas
+		Seleccionar Factura Impaga
+		Ingresar Modo de pago
+		Ingresar fecha de Pago
+		Ingresar Responsable del Pago
+		Guardar
