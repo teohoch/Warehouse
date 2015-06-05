@@ -7,21 +7,64 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %>"><%= value %></div>
-    <% end %>
 
 
-    <% if user_signed_in? %>
-        Logged in as <strong><%= current_user.email %></strong>.
-        <%= link_to 'Edit profile', edit_user_registration_path %> |
-        <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-    <% else %>
-        <%= link_to "Sign up", new_user_registration_path %> |
-        <%= link_to "Login", new_user_session_path %>
-    <% end %>
+          <%= nav_bar fixed: :top, brand: "Warehouse 1.0", responsive: true, fluid: true do %>
+            <%= menu_group do %>
+                <%= menu_item "Home", root_path %>
+                <%= menu_divider %>
+                <% if user_signed_in? %>
+
+    <!--DropDown para Usuario Interno-->
+                    <% if current_user.has_role? :internal %>
+                        <%= menu_item "Uso de Suministros", root_path %>
+                        <%= menu_item "Generar envio a Sucursal", root_path %>
+                        <%= drop_down "Stocks Ideales" do %>
+                            <%= menu_item "Establecer Stock Ideal Bodega", root_path %>
+                            <%= menu_item "Establecer Stock Ideal Sucursal", root_path %>
+                        <% end %>
+                        <%= drop_down "Stocks Ideales" do %>
+                            <%= menu_item "Generar Orden de Compra Por Bodega", root_path %>
+                            <%= menu_item "Generar Orden de Compra Por Proveedor", root_path %>
+                        <% end %>
+                        <%= drop_down "Facturas" do %>
+
+                            <%= menu_item "Ingresar Factura", root_path %>
+                            <%= menu_item "Pagar Factura", root_path %>
+                        <% end %>
+                    <% end %>
+
+
+    <!--DropDown para Administrados-->
+                    <% if current_user.has_role? :admin %>
+                        <%= drop_down "Administrador" do %>
+                            <%= menu_item "Crear Nuevo Usuario", new_user_registration_path %>
+                            <%= menu_item "Crear Nueva Bodega", new_bodega_path %>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            <% end %>
+
+    <!--Log In en la barra superior -->
+            <%= menu_group pull: :right do %>
+                <% if user_signed_in? %>
+                    <%= menu_item ("Loggeado como "+ current_user.email), edit_user_registration_path %>
+                    <%= menu_item "Log Out", destroy_user_session_path, method: :delete  %>
+                <% else %>
+                      <%= form_for(:user, :url => session_path(:user), :html => { :class => "navbar-form" } ) do |f| %>
+                          <%= f.text_field :email %>
+                          <%= f.password_field :password %>
+                          <%= f.check_box :remember_me %>
+                          <%= f.label :remember_me, "¿Recordarme?" %>
+                          <%= f.submit 'Iniciar Sesion' %>
+                          <%= link_to "¿Olvido su contraseña?", new_password_path(:user) %>
+                      <% end %>
+
+                <% end %>
+            <% end %>
+        <% end %>
+
+
 
 <%= yield %>
 

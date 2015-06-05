@@ -19,5 +19,13 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
+
 en:
   hello: "Hello world"
+  invalid_rut: "Rut Invalido"
+  invalid_blank: "Este campo no puede estar vacio."
+
+  helpers:
+      submit:
+        create: "Crear"
+        update: "Confirmar cambios"

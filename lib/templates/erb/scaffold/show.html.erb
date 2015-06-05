@@ -1,0 +1,18 @@
+<div class="container">
+    <p id="notice"><%%= notice %></p>
+
+    <% attributes.reject(&:password_digest?).each do |attribute| -%>
+        <p>
+      <strong><%= attribute.human_name %>:</strong>
+      <%%= @<%= singular_table_name %>.<%= attribute.name %> %>
+    </p>
+
+    <% end -%>
+  <br/>
+  <div style="float:left;">
+    <%%= button_to 'Editar', edit_<%= singular_table_name %>_path(@<%= singular_table_name %>), class: "btn", :method => :get   %>
+  </div>
+  <div style="float: left;margin-left: 2%;">
+    <%%= button_to 'Regresar', <%= index_helper %>_path, class: "btn", :method => :get  %>
+  </div>
+</div>

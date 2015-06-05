@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  resources :bodegas
+
+  resources :providers
   devise_for :users, controllers: { sessions: "users/sessions", :registrations => "users/registrations"}
+  resources :bodegas
+
   get 'welcome/index'
 
   get 'welcome/show'

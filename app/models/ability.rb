@@ -28,6 +28,9 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
+
+    user ||= User.new
+
     if user.has_role? :admin
       can :manage, :all
     else

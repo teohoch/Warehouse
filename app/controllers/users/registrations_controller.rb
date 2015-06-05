@@ -2,6 +2,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 # before_filter :configure_sign_up_params, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
+  before_filter :check_permissions, :only => [:new, :create, :cancel]
+  skip_before_filter :require_no_authentication
+
+  def check_permissions
+    authorize! :create, resource
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = "Acceso Denegado: ¡Solo el Administrador puede crear nuevos usuarios!"
+    redirect_to root_url
+  end
 
   # GET /resource/sign_up
   # def new
@@ -41,7 +52,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  protected
 
   # You can put the params you want to permit in the empty array.
   # def configure_sign_up_params
@@ -62,4 +73,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  def sign_up(resource_name, resource)
+    true
+  end
 end
