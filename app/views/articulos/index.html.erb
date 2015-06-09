@@ -1,0 +1,53 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <h1>Listado de  Articulos</h1>
+
+  <table id="articulos">
+    <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Descripcion</th>
+      <th>Area</th>
+      <!-- ver-->
+      <th></th>
+      <!-- editar-->
+      <% if can? :update, @articulo %>
+          <th></th>
+      <% end %>
+      <!-- Eliminar-->
+      <% if can? :destroy, @articulo %>
+          <th></th>
+      <% end %>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @articulos.each do |articulo| %>
+        <tr>
+          <td><%= articulo.name %></td>
+          <td><%= articulo.description %></td>
+          <td><%= articulo.area %></td>
+
+          <td style="text-align: center">
+            <%= button_to 'Mostrar', articulo, class: "btn btn-default", :method => :get %>
+          </td>
+          <% if can? :update, @articulo %>
+              <td style="text-align: center"><%= button_to 'Editar', edit_articulo_path(articulo), class: "btn btn-default", :method => :get %></td>
+          <% end %>
+          <% if can? :destroy, @articulo %>
+              <td style="text-align: center"><%= button_to 'Eliminar', articulo, class: "btn btn-default", method: :delete, data: { confirm: '¿Esta seguro?' } %></td>
+          <% end %>
+        </tr>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+  <% if can? :create, @provider %>
+      <%= button_to 'Crear nuevo Articulo', new_articulo_path , class: "btn", :method => :get   %>
+  <% end %>
+
+</div>

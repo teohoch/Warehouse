@@ -1,9 +1,9 @@
 class CreateBodegas < ActiveRecord::Migration
   def change
     create_table :bodegas do |t|
-      t.string :name
-      t.text :ubicacion
-      t.text :descripcion
+      t.text :name
+      t.text :location
+      t.text :description
 
       t.timestamps null: false
     end

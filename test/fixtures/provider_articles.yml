@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  provider_id: 
+  articulo_id: 
+  container_price: 1
+  unit_price: 1
+  units_per_container: 1
+  validity_date: 2015-06-07 16:58:45
+
+two:
+  provider_id: 
+  articulo_id: 
+  container_price: 1
+  unit_price: 1
+  units_per_container: 1
+  validity_date: 2015-06-07 16:58:45

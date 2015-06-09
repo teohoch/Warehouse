@@ -14,6 +14,7 @@ class ProvidersController < ApplicationController
   # GET /providers/1
   # GET /providers/1.json
   def show
+    @available = CurrentProviderArticle.where(:provider_id => @provider.id, :enabled => TRUE)
   end
 
   # GET /providers/new
@@ -64,6 +65,16 @@ class ProvidersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def add_multiple_articles
+    @Articulos = Articulo.all
+    @Articulos_disponibles = CurrentProviderArticle.where(:provider_id => @providers.first.id, :enabled => TRUE)
+  end
+
+  def create_multiple_articles
+    @casa = casa
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -1,0 +1,61 @@
+    <div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <h1>Listado de disponibilidad de Articulos</h1>
+
+  <table id="provider_articles">
+    <thead>
+    <tr>
+                <th>Proveedor</th>
+                <th>Articulo</th>
+                <th>Precio Contenedor</th>
+                <th>Precio Unitario</th>
+                <th>Unidades por Contenedor</th>
+            <!-- ver-->
+      <th></th>
+      <!-- editar-->
+      <% if can? :update, @provider_article %>
+          <th></th>
+      <% end %>
+      <!-- Eliminar-->
+      <% if can? :destroy,  @provider_article  %>
+          <th></th>
+      <% end %>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @provider_articles.each do |provider_article| %>
+    <tr>
+                <td><%= provider_article.provider.name %></td>
+                <td><%= provider_article.articulo.name %></td>
+                <td><%= provider_article.provider_article.container_price %></td>
+                <td><%= provider_article.provider_article.unit_price %></td>
+                <td><%= provider_article.provider_article.units_per_container %></td>
+      
+      <td style="text-align: center">
+        <%= button_to 'Mostrar', provider_article.provider_article, class: "btn btn-default", :method => :get %>
+      </td>
+      <% if can? :update, @provider_article %>
+        <td style="text-align: center">
+          <%= button_to 'Editar', edit_provider_article_path(provider_article.provider_article), class: "btn btn-default", :method => :get %>
+        </td>
+      <% end %>
+      <!-- Eliminar-->
+      <% if can? :destroy,  @provider_article  %>
+        <td style="text-align: center">
+          <%= button_to 'Eliminar', provider_article.provider_article, class: "btn btn-default", method: :delete, data: { confirm: '¿Estas que desea eliminar este  ?' } %>
+        </td>
+      <% end %>
+
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+  <% if can? :create, @provider_article %>
+      <%= button_to 'Agregar Articulo a lista de Proveedor', new_provider_article_path , class: "btn", :method => :get   %>
+  <% end %>
+</div>

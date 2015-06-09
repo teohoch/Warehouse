@@ -1,1 +1,1 @@
-json.extract! @bodega, :id, :name, :ubicacion, :descripcion, :created_at, :updated_at
+json.extract! @bodega, :id, :name, :location, :description, :created_at, :updated_at

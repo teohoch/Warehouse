@@ -1,0 +1,41 @@
+<div class="container">
+    <p id="notice"><%= notice %></p>
+
+            <p>
+      <strong>Proveedor: </strong>
+      <%= @provider_article.provider.name %>
+    </p>
+
+            <p>
+      <strong>Articulo:</strong>
+      <%= @provider_article.articulo.name %>
+    </p>
+
+            <p>
+      <strong>Precio Contenedor:</strong>
+      $<%= @provider_article.container_price %>
+    </p>
+
+            <p>
+      <strong>Precio Unitario:</strong>
+      $<%= @provider_article.unit_price %>
+    </p>
+
+            <p>
+      <strong>Unidade por Contenedor:</strong>
+      <%= @provider_article.units_per_container %>
+    </p>
+
+            <p>
+      <strong>Ultima Actualizacion:</strong>
+      <%= @provider_article.validity_date %>
+    </p>
+
+      <br/>
+  <div style="float:left;">
+    <%= button_to 'Editar', edit_provider_article_path(@provider_article), class: "btn", :method => :get   %>
+  </div>
+  <div style="float: left;margin-left: 2%;">
+    <%= button_to 'Regresar', provider_articles_path, class: "btn", :method => :get  %>
+  </div>
+</div>

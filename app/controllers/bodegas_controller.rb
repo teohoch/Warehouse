@@ -1,10 +1,5 @@
 class BodegasController < ApplicationController
   before_action :set_bodega, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource
-
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :alert => exception.message
-  end
 
   # GET /bodegas
   # GET /bodegas.json
@@ -33,7 +28,7 @@ class BodegasController < ApplicationController
 
     respond_to do |format|
       if @bodega.save
-        format.html { redirect_to @bodega, notice: 'Bodega was successfully created.' }
+        format.html { redirect_to @bodega, notice: 'La bodega fue creada satisfactoriamente.' }
         format.json { render :show, status: :created, location: @bodega }
       else
         format.html { render :new }
@@ -47,7 +42,7 @@ class BodegasController < ApplicationController
   def update
     respond_to do |format|
       if @bodega.update(bodega_params)
-        format.html { redirect_to @bodega, notice: 'Bodega was successfully updated.' }
+        format.html { redirect_to @bodega, notice: 'La bodega fue actualizada satisfactoriamente.' }
         format.json { render :show, status: :ok, location: @bodega }
       else
         format.html { render :edit }
@@ -61,7 +56,7 @@ class BodegasController < ApplicationController
   def destroy
     @bodega.destroy
     respond_to do |format|
-      format.html { redirect_to bodegas_url, notice: 'Bodega was successfully destroyed.' }
+      format.html { redirect_to bodegas_url, notice: 'La bodega fue elimnada satisfactoriamente.' }
       format.json { head :no_content }
     end
   end
@@ -74,6 +69,6 @@ class BodegasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bodega_params
-      params.require(:bodega).permit(:name, :ubicacion, :descripcion)
+      params.require(:bodega).permit(:name, :location, :description)
     end
 end

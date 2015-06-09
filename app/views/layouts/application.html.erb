@@ -40,10 +40,19 @@
                         <%= drop_down "Administrador" do %>
                             <%= menu_item "Crear Nuevo Usuario", new_user_registration_path %>
                             <%= menu_item "Crear Nueva Bodega", new_bodega_path %>
+                            <%= menu_item "Crear Nuevo Articulo", new_articulo_path %>
                         <% end %>
+                    <% end %>
+                    <%= drop_down "Listados" do %>
+                        <%= menu_item "Bodegas", bodegas_path %>
+                        <%= menu_item "Articulos", articulos_path %>
+                        <%= menu_item "Proveedores", providers_path %>
+                        <%= menu_item "Disponibilidad de Articulos", provider_articles_path %>
                     <% end %>
                 <% end %>
             <% end %>
+
+
 
     <!--Log In en la barra superior -->
             <%= menu_group pull: :right do %>

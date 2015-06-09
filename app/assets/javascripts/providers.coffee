@@ -1,5 +1,5 @@
 jQuery ->
-    $('#products').dataTable(
+    $('#providers').dataTable(
       {
         "language": {
           "sProcessing":    "Procesando...",

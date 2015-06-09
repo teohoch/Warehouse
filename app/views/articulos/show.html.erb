@@ -1,0 +1,26 @@
+<div class="container">
+    <p id="notice"><%= notice %></p>
+
+            <p>
+      <strong>Name:</strong>
+      <%= @articulo.name %>
+    </p>
+
+            <p>
+      <strong>Description:</strong>
+      <%= @articulo.description %>
+    </p>
+
+            <p>
+      <strong>Area:</strong>
+      <%= @articulo.area %>
+    </p>
+
+      <br/>
+  <div style="float:left;">
+    <%= button_to 'Editar', edit_articulo_path(@articulo), class: "btn", :method => :get   %>
+  </div>
+  <div style="float: left;margin-left: 2%;">
+    <%= button_to 'Regresar', articulos_path, class: "btn", :method => :get  %>
+  </div>
+</div>

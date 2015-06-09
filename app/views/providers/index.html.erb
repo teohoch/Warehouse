@@ -3,7 +3,7 @@
     <h1>Listado de Proveedores</h1>
   <br/>
 
-    <table id="products" class="display">
+    <table id="providers" class="display">
       <thead>
         <tr>
           <th>Name</th>
@@ -45,5 +45,5 @@
     <br>
     <% if can? :create, @provider %>
       <%= button_to 'Crear Nuevo Proveedor', new_provider_path , class: "btn", :method => :get   %>
-  <% end %>
+    <% end %>
 </div>

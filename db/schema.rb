@@ -11,18 +11,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150605141922) do
+ActiveRecord::Schema.define(version: 20150608174757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "bodegas", force: :cascade do |t|
-    t.string   "name"
-    t.text     "ubicacion"
-    t.text     "descripcion"
+  create_table "articulos", force: :cascade do |t|
+    t.text     "name"
+    t.text     "description"
+    t.text     "area"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "bodegas", force: :cascade do |t|
+    t.text     "name"
+    t.text     "location"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "current_provider_articles", force: :cascade do |t|
+    t.integer  "articulo_id",         null: false
+    t.integer  "provider_id",         null: false
+    t.integer  "provider_article_id", null: false
+    t.boolean  "enabled"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "current_provider_articles", ["articulo_id"], name: "index_current_provider_articles_on_articulo_id", using: :btree
+  add_index "current_provider_articles", ["provider_article_id"], name: "index_current_provider_articles_on_provider_article_id", using: :btree
+  add_index "current_provider_articles", ["provider_id"], name: "index_current_provider_articles_on_provider_id", using: :btree
+
+  create_table "provider_articles", force: :cascade do |t|
+    t.integer  "provider_id"
+    t.integer  "articulo_id"
+    t.integer  "container_price"
+    t.integer  "unit_price"
+    t.integer  "units_per_container"
+    t.datetime "validity_date"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "provider_articles", ["articulo_id"], name: "index_provider_articles_on_articulo_id", using: :btree
+  add_index "provider_articles", ["provider_id"], name: "index_provider_articles_on_provider_id", using: :btree
 
   create_table "providers", force: :cascade do |t|
     t.text     "name"
@@ -69,4 +104,9 @@ ActiveRecord::Schema.define(version: 20150605141922) do
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
+  add_foreign_key "current_provider_articles", "articulos"
+  add_foreign_key "current_provider_articles", "provider_articles"
+  add_foreign_key "current_provider_articles", "providers"
+  add_foreign_key "provider_articles", "articulos"
+  add_foreign_key "provider_articles", "providers"
 end

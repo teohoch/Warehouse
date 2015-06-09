@@ -1,31 +1,57 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <p id="notice"><%= notice %></p>
 
-<h1>Listing Bodegas</h1>
+  <h1>Listado de Bodegas</h1>
 
-<table>
-  <thead>
+  <table id="bodegas">
+    <thead>
     <tr>
-      <th>Name</th>
-      <th>Ubicacion</th>
-      <th>Descripcion</th>
-      <th colspan="3"></th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Description</th>
+            <!-- ver-->
+      <th></th>
+      <!-- editar-->
+      <% if can? :update, @bodega %>
+          <th></th>
+      <% end %>
+      <!-- Eliminar-->
+      <% if can? :destroy,  @bodega  %>
+          <th></th>
+      <% end %>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
+    <tbody>
     <% @bodegas.each do |bodega| %>
-      <tr>
-        <td><%= bodega.name %></td>
-        <td><%= bodega.ubicacion %></td>
-        <td><%= bodega.descripcion %></td>
-        <td><%= link_to 'Show', bodega %></td>
-        <td><%= link_to 'Edit', edit_bodega_path(bodega) %></td>
-        <td><%= link_to 'Destroy', bodega, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <tr>
+                <td><%= bodega.name %></td>
+                <td><%= bodega.location %></td>
+                <td><%= bodega.description %></td>
+      
+      <td style="text-align: center">
+        <%= button_to 'Mostrar', bodega, class: "btn btn-default", :method => :get %>
+      </td>
+      <% if can? :update, @bodega %>
+        <td style="text-align: center">
+          <%= button_to 'Editar', edit_bodega_path(bodega), class: "btn btn-default", :method => :get %>
+        </td>
+      <% end %>
+      <!-- Eliminar-->
+      <% if can? :destroy,  @bodega  %>
+        <td style="text-align: center">
+          <%= button_to 'Eliminar', bodega, class: "btn btn-default", method: :delete, data: { confirm: '¿Estas seguro que desea eliminar esta bodega?' } %>
+        </td>
+      <% end %>
+
+    </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<br>
+  <br>
 
-<%= link_to 'New Bodega', new_bodega_path %>
+  <% if can? :create, @bodega %>
+      <%= button_to 'Crear nueva  Bodega', new_bodega_path , class: "btn", :method => :get   %>
+  <% end %>
+</div>

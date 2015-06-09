@@ -1,0 +1,16 @@
+<%= simple_form_for(@provider_article) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :provider, label: "Proveedor" %>
+    <%= f.association :articulo %>
+    <%= f.input :container_price, label: "Precio Contenedor" %>
+    <%= f.input :unit_price, label: "Precio Unitario" %>
+    <%= f.input :units_per_container, label: "Unidades por Contenedor" %>
+    <%= f.input :current_enabled, as: :boolean, label: "Habilitado", checked_value: TRUE, unchecked_value: FALSE  %>
+  </div>
+    <br/>
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,0 +1,13 @@
+<%= simple_form_for(@articulo) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name, as: :string, label: "Nombre del Articulo" %>
+    <%= f.input :description, label: "Descripcion del Articulo" %>
+    <%= f.input :area , as: :string, label: "Area"%>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

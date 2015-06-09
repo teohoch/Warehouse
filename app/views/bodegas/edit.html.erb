@@ -1,6 +1,14 @@
-<h1>Editing Bodega</h1>
+<div class="container">
+  <h1>Editar Bodega</h1>
 
-<%= render 'form' %>
+  <%= render 'form' %>
 
-<%= link_to 'Show', @bodega %> |
-<%= link_to 'Back', bodegas_path %>
+  <br/>
+
+  <div style="float:left;">
+    <%= button_to 'Mostrar', @bodega, class: "btn", :method => :get   %>
+  </div>
+  <div style="float: left;margin-left: 2%;">
+    <%= button_to 'Regresar', bodegas_path, class: "btn", :method => :get   %>
+  </div>
+</div>

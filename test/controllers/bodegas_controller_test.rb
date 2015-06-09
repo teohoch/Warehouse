@@ -18,7 +18,7 @@ class BodegasControllerTest < ActionController::TestCase
 
   test "should create bodega" do
     assert_difference('Bodega.count') do
-      post :create, bodega: { descripcion: @bodega.descripcion, name: @bodega.name, ubicacion: @bodega.ubicacion }
+      post :create, bodega: { description: @bodega.description, location: @bodega.location, name: @bodega.name }
     end
 
     assert_redirected_to bodega_path(assigns(:bodega))
@@ -35,7 +35,7 @@ class BodegasControllerTest < ActionController::TestCase
   end
 
   test "should update bodega" do
-    patch :update, id: @bodega, bodega: { descripcion: @bodega.descripcion, name: @bodega.name, ubicacion: @bodega.ubicacion }
+    patch :update, id: @bodega, bodega: { description: @bodega.description, location: @bodega.location, name: @bodega.name }
     assert_redirected_to bodega_path(assigns(:bodega))
   end
 

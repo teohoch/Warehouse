@@ -2,10 +2,10 @@
 
 one:
   name: MyText
-  ubicacion: MyText
-  descripcion: MyText
+  location: MyText
+  description: MyText
 
 two:
   name: MyText
-  ubicacion: MyText
-  descripcion: MyText
+  location: MyText
+  description: MyText

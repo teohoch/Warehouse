@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
 
-  resources :providers
-  devise_for :users, controllers: { sessions: "users/sessions", :registrations => "users/registrations"}
+  resources :provider_articles
   resources :bodegas
+  resources :articulos
+  resources :providers do
+    get "add_multiple_articles"
+    post "create_multiple_articles"
+  end
+  devise_for :users, controllers: { sessions: "users/sessions", :registrations => "users/registrations"}
 
   get 'welcome/index'
 
