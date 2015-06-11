@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Proveedor <%= @provider.name %></h1>
+  <h1>Proveedor <%= @provider.name.titleize %></h1>
 
   <p id="notice"><%= notice %></p>
 
@@ -56,6 +56,13 @@
     </tbody>
   </table>
 
+  <br/>
+  <div style="float:left;">
+    <%= button_to 'Agregar Articulos disponibles', select_add_multiple_articles_provider_path(@provider), class: "btn btn-default", :method => :get  %>
+  </div>
+  <div style="float: left;margin-left: 2%;">
+     <%= button_to 'Remover Articulos disponibles', select_remove_multiple_articles_provider_path(@provider), class: "btn btn-default", :method => :get  %>
+  </div>
 
 
 </div>

@@ -1,0 +1,20 @@
+<div class="container">
+  <h1>Articulos disponibles para eliminar de <%= @provider.name %></h1>
+
+  <%= simple_form_for :aval, url: remove_multiple_articles_provider_path do |f| %>
+      <div class="form-inputs">
+          <% @Articulos_disponibles.each do |b| %>
+              <%= f.input "check[#{b.id}]",label: b.articulo.name, as: :boolean, checked_value: TRUE, unchecked_value: FALSE , input_html: {checked: FALSE} %>
+            <br/>
+          <% end %>
+        </div>
+      <br/>
+
+      <div class="form-actions">
+        <%= link_to "Regresar", :back, {:class=>"btn btn-default"} %>
+        <%= f.button :submit, "Remover de la Lista de Disponibilidad" %>
+
+      </div>
+  <% end %>
+
+</div>

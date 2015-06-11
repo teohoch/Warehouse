@@ -1,0 +1,21 @@
+<div class="container">
+  <h1>Articulos disponibles para agregar a <%= @provider.name %></h1>
+
+  <%= simple_form_for :aval, url: input_add_multiple_articles_provider_path do |f| %>
+      <div class="form-inputs">
+          <% @Articulos.each do |b| %>
+            <% exist = @Articulos_disponibles.exists?(:articulo_id => b.id) %>
+              <%= f.input "check[#{b.id}]",label: b.name, as: :boolean, checked_value: TRUE, unchecked_value: FALSE , disabled: exist , input_html: {checked: exist} %>
+            <br/>
+          <% end %>
+        </div>
+      <br/>
+
+      <div class="form-actions">
+        <%= link_to "Regresar", :back, {:class=>"btn btn-default"} %>
+        <%= f.button :submit, "Agregar a Lista de Disponibilidad" %>
+
+      </div>
+  <% end %>
+
+</div>

@@ -1,3 +1,15 @@
+Calculador = ->
+  his = event.target
+  id = his.id
+  value1 = (id[id.length - 1] + 1)%3
+  value2 = (id[id.length - 1] + 2)%3
+  s1 = id[0] + "inputmultiple" + value1
+  s2 = id[0] + "inputmultiple" + value2
+  $("#"+s1).attr("value", value1)
+  $("#"+s2).attr("value", value2)
+
+
+
 jQuery ->
     $('#providers').dataTable(
       {
@@ -26,3 +38,5 @@ jQuery ->
           }
         },"jQueryUI": true
       });
+    $("[id*='inputmultiple']").blur ->
+      Calculador(this)

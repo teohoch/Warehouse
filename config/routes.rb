@@ -4,8 +4,15 @@ Rails.application.routes.draw do
   resources :bodegas
   resources :articulos
   resources :providers do
-    get "add_multiple_articles"
-    post "create_multiple_articles"
+      member do
+        get "select_add_multiple_articles"
+        post "input_add_multiple_articles"
+        post "create_multiple_articles"
+
+        get "select_remove_multiple_articles"
+        post "remove_multiple_articles"
+      end
+
   end
   devise_for :users, controllers: { sessions: "users/sessions", :registrations => "users/registrations"}
 

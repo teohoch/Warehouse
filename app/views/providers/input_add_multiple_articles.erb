@@ -1,0 +1,25 @@
+<div class="container">
+  <h1>Articulos a agregar a lista de disponibilidad de <%= @provider.name %></h1>
+  <br/>
+  <hr/>
+  <%= simple_form_for :create, url: create_multiple_articles_provider_path do |f| %>
+
+    <%= f.error_notification %>
+
+    <div class="form_inputs">
+      <% @Articulos_to_add.each do |p| %>
+          <%= f.simple_fields_for "articulos[#{p.articulo_id}]", p do |d| %>
+              <h3><%= p.articulo.name %></h3>
+              <%= d.input :container_price, label: "Precio por Contenedor", input_html: {value: 0, id: "#{p.articulo_id}inputmultiple0"} %>
+              <%= d.input :unit_price, label: "Precio por Unidad", input_html: {value: 0, id: "#{p.articulo_id}inputmultiple1"} %>
+              <%= d.input :units_per_container, label: "Unidades por Contenedor", input_html: {value: 0, id: "#{p.articulo_id}inputmultiple2"} %>
+          <% end %>
+          <hr/>
+      <% end %>
+    </div>
+    <div class="form_submit">
+      <%= f.button :submit %>
+    </div>
+
+  <% end %>
+</div>
