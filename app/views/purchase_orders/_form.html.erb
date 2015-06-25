@@ -1,0 +1,12 @@
+<%= simple_form_for(@purchase_order) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :provider, label: "Proveedor:" %>
+    <%=  link_to_add_fields "Agregar Item", f, :item_purchase_orders %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,0 +1,59 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <h1>Listado de Purchase Orders</h1>
+
+  <table id="purchase_orders">
+    <thead>
+    <tr>
+                <th>User</th>
+                <th>Provider</th>
+                <th>Submitdate</th>
+                <th>Totalamount</th>
+            <!-- ver-->
+      <th></th>
+      <!-- editar-->
+      <% if can? :update, @purchase_order %>
+          <th></th>
+      <% end %>
+      <!-- Eliminar-->
+      <% if can? :destroy,  @purchase_order  %>
+          <th></th>
+      <% end %>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @purchase_orders.each do |purchase_order| %>
+    <tr>
+                <td><%= purchase_order.user %></td>
+                <td><%= purchase_order.provider %></td>
+                <td><%= purchase_order.SubmitDate %></td>
+                <td><%= purchase_order.TotalAmount %></td>
+      
+      <td style="text-align: center">
+        <%= button_to 'Mostrar', purchase_order, class: "btn btn-default", :method => :get %>
+      </td>
+      <% if can? :update, @purchase_order %>
+        <td style="text-align: center">
+          <%= button_to 'Editar', edit_purchase_order_path(purchase_order), class: "btn btn-default", :method => :get %>
+        </td>
+      <% end %>
+      <!-- Eliminar-->
+      <% if can? :destroy,  @purchase_order  %>
+        <td style="text-align: center">
+          <%= button_to 'Eliminar', purchase_order, class: "btn btn-default", method: :delete, data: { confirm: '¿Estas que desea eliminar este  ?' } %>
+        </td>
+      <% end %>
+
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+  <% if can? :create, @purchase_order %>
+      <%= button_to 'Crear nuevo  Purchase order', new_purchase_order_path , class: "btn", :method => :get   %>
+  <% end %>
+</div>

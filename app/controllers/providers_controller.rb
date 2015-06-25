@@ -89,7 +89,7 @@ class ProvidersController < ApplicationController
     items.each do |i|
       new_articulo_id = i.first
       new_data = i.second
-      pa = ProviderArticle.new(:provider_id => @provider.id, :articulo_id => new_articulo_id, :container_price => new_data[:container_price], :unit_price => new_data[:unit_price], :units_per_container => new_data[:units_per_container], :validity_date => DateTime.now)
+      pa = ProviderArticle.new(:provider_id => @provider.id, :articulo_id => new_articulo_id, :container_price => new_data[:container_price], :unit_price => new_data[:unit_price], :units_per_container => new_data[:units_per_container], :validity_date => DateTime.now, :code => new_data[:code])
       if pa.save
         current_created = CurrentProviderArticle.where(:articulo_id => pa.articulo_id, :provider_id => pa.provider_id)
         if current_created.blank?
@@ -100,10 +100,12 @@ class ProvidersController < ApplicationController
         end
 
         if success
-          flash_message(:success, ("Se a agregado a la lista de disponibilidad de " << @provider.name.titlecase << " el articulo " << pa.articulo.name.titlecase))
+          flash_message(:success, ("Se a agregado a la lista de disponibilidad de " << @provider.name.titlecase << " el articulo " << pa.articulo.name.titlecase << "."))
         else
-          flash_message(:error, ("No se a podido agregar " << pa.articulo.name.titleize << " a la lista de disponibilidad de " << @provider.name.titlecase))
+          flash_message(:error, ("No se a podido agregar " << pa.articulo.name.titleize << " a la lista de disponibilidad de " << @provider.name.titlecase << "."))
         end
+      else
+        flash_message(:error, ["No se a podido agregar " << pa.articulo.name.titleize << " a la lista de disponibilidad de " << @provider.name.titlecase << ":", pa.errors.messages ])
       end
     end
     respond_to do |format|
@@ -121,7 +123,7 @@ class ProvidersController < ApplicationController
       if p.second
         current = CurrentProviderArticle.find_by_id(p.first)
         if current.update(:enabled => FALSE)
-          flash_message(:success, ("Se a eliminado " << current.articulo.name.titlecase << " a la lista de disponibilidad de " << @provider.name.titlecase))
+          flash_message(:success, ("Se a eliminado " << current.articulo.name.titlecase << " de la lista de disponibilidad de " << @provider.name.titlecase))
         else
           flash_message(:error, ("No se a podido eliminar " << current.articulo.name.titlecase   << " de la lista de disponibilidad de " << @provider.name.titlecase))
         end

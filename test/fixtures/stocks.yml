@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  articulo_id: 
+  quantity: 1
+  bodega_id: 
+  lote_id: 
+
+two:
+  articulo_id: 
+  quantity: 1
+  bodega_id: 
+  lote_id: 

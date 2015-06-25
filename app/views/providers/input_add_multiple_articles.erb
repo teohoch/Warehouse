@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Articulos a agregar a lista de disponibilidad de <%= @provider.name %></h1>
+  <h1>Articulos a agregar a <%= @provider.name %></h1>
   <br/>
   <hr/>
   <%= simple_form_for :create, url: create_multiple_articles_provider_path do |f| %>
@@ -10,15 +10,19 @@
       <% @Articulos_to_add.each do |p| %>
           <%= f.simple_fields_for "articulos[#{p.articulo_id}]", p do |d| %>
               <h3><%= p.articulo.name %></h3>
-              <%= d.input :container_price, label: "Precio por Contenedor", input_html: {value: 0, id: "#{p.articulo_id}inputmultiple0"} %>
-              <%= d.input :unit_price, label: "Precio por Unidad", input_html: {value: 0, id: "#{p.articulo_id}inputmultiple1"} %>
-              <%= d.input :units_per_container, label: "Unidades por Contenedor", input_html: {value: 0, id: "#{p.articulo_id}inputmultiple2"} %>
+              <%= d.input :unit_price, label: "Precio por Unidad", required: true, input_html: {value: 0, id: "#{p.articulo_id}inputmultiple0"} %>
+              <br/>
+              <%= d.input :units_per_container, label: "Unidades por Contenedor", required: true, input_html: {value: 0, id: "#{p.articulo_id}inputmultiple1"} %>
+              <br/>
+              <%= d.input :container_price, label: "Precio por Contenedor",  required: true, input_html: {value: 0, id: "#{p.articulo_id}inputmultiple2"} %>
+              <br/>
+              <%= d.input :code, label: "Codigo" %>
           <% end %>
           <hr/>
       <% end %>
     </div>
     <div class="form_submit">
-      <%= f.button :submit %>
+      <%= f.button :submit, "Agregar a Lista de Disponibilidad"  %>
     </div>
 
   <% end %>

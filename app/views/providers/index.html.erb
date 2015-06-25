@@ -1,5 +1,4 @@
 <div class="container">
-    <p id="notice"><%= notice %></p>
     <h1>Listado de Proveedores</h1>
   <br/>
 
@@ -26,7 +25,7 @@
       <tbody>
         <% @providers.each do |provider| %>
           <tr>
-            <td><%= provider.name %></td>
+            <td><%= provider.name.titleize %></td>
             <td><%= provider.address %></td>
             <td><%= provider.phone %></td>
             <td><%= provider.rut %></td>

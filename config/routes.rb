@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :purchase_orders
   resources :provider_articles
   resources :bodegas
   resources :articulos

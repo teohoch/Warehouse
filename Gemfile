@@ -40,8 +40,11 @@ gem 'simple_form'
 gem 'rut_chileno'
 
 gem 'devise'
+gem 'devise-i18n'
 gem 'cancancan'
 gem 'rolify'
+
+gem 'composite_primary_keys'
 
 gem 'jquery-datatables-rails', '~> 3.3.0'
 gem 'jquery-ui-rails'

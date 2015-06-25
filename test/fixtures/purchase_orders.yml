@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  provider_id: 
+  SubmitDate: 2015-06-20
+  TotalAmount: 1
+
+two:
+  user_id: 
+  provider_id: 
+  SubmitDate: 2015-06-20
+  TotalAmount: 1

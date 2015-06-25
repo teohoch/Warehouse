@@ -1,0 +1,7 @@
+
+
+<div class="form-inputs">
+  <%= f.association :current_provider_article, label: "Articulo", collection: Provider.all, as: :grouped_select, group_method: :available_articles %>
+  <br/>
+  <%= f.input :price %>
+</div>
