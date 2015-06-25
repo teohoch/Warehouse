@@ -2,14 +2,16 @@
 <project version="4">
   <component name="dataSourceStorageLocal">
     <data-source name="Rails Warehouse: development" uuid="63883bc2-da56-4f20-b9de-612c2bbb1489">
+      <secret-storage>master_key</secret-storage>
       <user-name>teohoch</user-name>
     </data-source>
     <data-source name="Rails Warehouse: test" uuid="b63a8289-1dfc-467e-bc89-9fd54c754f42">
+      <secret-storage>master_key</secret-storage>
       <user-name>teohoch</user-name>
     </data-source>
     <data-source name="Rails Warehouse: production" uuid="cecda6a3-fd75-4f69-9ae8-6a69b2774cc1">
+      <secret-storage>master_key</secret-storage>
       <user-name>teohoch</user-name>
-      <user-password>df96df8fdf97df8adfefdfe4dffcdff1df8ddffddfebdff8dfefdfe2dfe5dfffdff9dfefdff5dfeedfebdffedfebdfe8dfebdff9dfefdff5dffadfebdff9dff9dffddfe5dff8dfeedf8ddff7df8adf8fdf94</user-password>
     </data-source>
   </component>
 </project>
