@@ -1,7 +1,7 @@
 
 
 <div class="form-inputs">
-  <%= f.association :current_provider_article, label: "Articulo", collection: Provider.all, as: :grouped_select, group_method: :available_articles %>
+  <%= f.association :current_provider_article, label: "Articulo", collection: Provider.all, as: :grouped_select, group_method: :current_provider_articles, :input_html => { :id => "article_select" }%>
   <br/>
-  <%= f.input :price %>
+  <%= f.input :price, label: "Precio" %>
 </div>

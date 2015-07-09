@@ -28,14 +28,6 @@ Calculador = ->
     else if (s1.val() != "0" and  !!s2.val())
       s1.val((parseInt(s2.val())/parseInt(his.value)).toFixed(2))
 
-
-
-
-
-
-
-
-
 jQuery ->
     $('#providers').dataTable(
       {

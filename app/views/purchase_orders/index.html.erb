@@ -1,15 +1,15 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
 
-  <h1>Listado de Purchase Orders</h1>
+  <h1>Listado de Ordenes de Compra</h1>
 
-  <table id="purchase_orders">
+  <table id="purchase_orders" class="display">
     <thead>
     <tr>
-                <th>User</th>
-                <th>Provider</th>
-                <th>Submitdate</th>
-                <th>Totalamount</th>
+                <th>Usuario</th>
+                <th>Proveedor</th>
+                <th>Fecha de Envio</th>
+                <th>Monto Total</th>
             <!-- ver-->
       <th></th>
       <!-- editar-->
@@ -42,7 +42,7 @@
       <!-- Eliminar-->
       <% if can? :destroy,  @purchase_order  %>
         <td style="text-align: center">
-          <%= button_to 'Eliminar', purchase_order, class: "btn btn-default", method: :delete, data: { confirm: '¿Estas que desea eliminar este  ?' } %>
+          <%= button_to 'Eliminar', purchase_order, class: "btn btn-default", method: :delete, data: { confirm: '¿Esta seguro que desea eliminar esta orden de compra?' } %>
         </td>
       <% end %>
 
@@ -54,6 +54,6 @@
   <br>
 
   <% if can? :create, @purchase_order %>
-      <%= button_to 'Crear nuevo  Purchase order', new_purchase_order_path , class: "btn", :method => :get   %>
+      <%= button_to 'Crear nueva Orden de Compra', new_purchase_order_path , class: "btn", :method => :get   %>
   <% end %>
 </div>

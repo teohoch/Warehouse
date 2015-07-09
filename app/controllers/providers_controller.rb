@@ -73,12 +73,19 @@ class ProvidersController < ApplicationController
   end
 
   def input_add_multiple_articles
-    @Articulos_to_add = Array.new
-    checked_to_add = Array.new
-    temp = params[:aval][:check]
-    temp.each do |f|
-      if f[1] == "true"
-        @Articulos_to_add.push(ProviderArticle.new(:provider_id => @provider.id, :articulo_id => f[0]))
+    if params[:aval] != nil
+      @Articulos_to_add = Array.new
+      checked_to_add = Array.new
+      temp = params[:aval][:check]
+      temp.each do |f|
+        if f[1] == "true"
+          @Articulos_to_add.push(ProviderArticle.new(:provider_id => @provider.id, :articulo_id => f[0]))
+        end
+      end
+    else
+      flash_message(:error, "Debe seleccionar por lo menos 1 Articulo para agregar.")
+      respond_to do |format|
+        format.html{ redirect_to select_add_multiple_articles_provider_path}
       end
     end
   end
