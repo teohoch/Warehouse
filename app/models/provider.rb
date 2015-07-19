@@ -16,6 +16,6 @@ class Provider < ActiveRecord::Base
   validates_with RUTValidator
 
   def available_articles
-    return CurrentProviderArticle.where(:provider_id =>self.id)
+    return CurrentProviderArticle.where(:provider_id =>self.id, :enabled => true)
   end
 end

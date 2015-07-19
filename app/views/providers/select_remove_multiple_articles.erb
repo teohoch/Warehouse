@@ -4,7 +4,7 @@
   <%= simple_form_for :aval, url: remove_multiple_articles_provider_path do |f| %>
       <div class="form-inputs">
           <% @Articulos_disponibles.each do |b| %>
-              <%= f.input "check[#{b.id}]",label: b.articulo.name, as: :boolean, checked_value: TRUE, unchecked_value: FALSE , input_html: {checked: FALSE} %>
+              <%= f.input "check[#{b.id}]",label: b.articulo.name, as: :boolean, checked_value: true, unchecked_value: false %>
             <br/>
           <% end %>
         </div>

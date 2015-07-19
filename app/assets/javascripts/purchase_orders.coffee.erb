@@ -1,6 +1,7 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
+
 jQuery ->
   aval_articles = ""
   $('form').on 'click', '.remove_fields', (event) ->
@@ -9,6 +10,7 @@ jQuery ->
     event.preventDefault()
 
   $('form').on 'click', '.add_fields', (event) ->
+    $("#purchase_order_provider_id").attr("disabled","disabled")
     time = new Date().getTime()
     regexp = new RegExp($(this).data('id'), 'g')
     reg = new RegExp('article_select','g')
@@ -25,6 +27,12 @@ jQuery ->
     else
       $(this).prev().find("select").empty()
 
+
+    $.ajax({
+      url: "/providers/1",
+      type: "GET",
+    })
+
   $('#purchase_order_provider_id').change ->
     items = $( "[id*='article_select']" )
     if items.length
@@ -37,6 +45,10 @@ jQuery ->
           $(item).html(options)
         else
           $(item).empty()
+    else
+      $("#add_purchase_item").show()
+
+
 
 
   $('#purchase_orders').dataTable(
@@ -66,5 +78,4 @@ jQuery ->
         }
       },"jQueryUI": true
     });
-
 

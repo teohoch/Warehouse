@@ -1,7 +1,19 @@
 
 
-<div class="form-inputs">
-  <%= f.association :current_provider_article, label: "Articulo", collection: Provider.all, as: :grouped_select, group_method: :current_provider_articles, :input_html => { :id => "article_select" }%>
-  <br/>
-  <%= f.input :price, label: "Precio" %>
+<div class="form-inputs row">
+  <div class="col-md-3  ">
+    <%= f.association :current_provider_article, label: "Articulo", collection: Provider.all, as: :grouped_select, group_method: :available_articles, :input_html => { :id => "article_select"}%>
+  </div>
+  <div class="col-md-2">
+    <%= f.input :amount, label: "Cantidad" %>
+  </div>
+  <div class="col-md-2">
+    <%= f.input :container_price, label: "Precio Cont.", readonly: true %>
+  </div>
+  <div class="col-md-2">
+    <%= f.input :units_per_container, label: "Unidades/Contenedor", readonly: true %>
+  </div>
+  <div class="col-md-2">
+    <%= f.input :total_price, label: "Precio Total", readonly: true %>
+  </div>
 </div>

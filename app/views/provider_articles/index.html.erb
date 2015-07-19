@@ -1,5 +1,5 @@
-    <div class="container">
-  <p id="notice"><%= notice %></p>
+<div class="container">
+
 
   <h1>Listado de disponibilidad de Articulos</h1>
 
@@ -44,7 +44,7 @@
       <!-- Eliminar-->
       <% if can? :destroy,  @provider_article  %>
         <td style="text-align: center">
-          <%= button_to 'Eliminar', provider_article.provider_article, class: "btn btn-default", method: :delete, data: { confirm: '¿Estas que desea eliminar este  ?' } %>
+          <%= button_to 'Eliminar', provider_article.provider_article, class: "btn btn-default", method: :delete, :params => { current_id: provider_article.id }, data: { confirm: '¿Estas que desea eliminar esta disponibilidad?' } %>
         </td>
       <% end %>
 
@@ -55,7 +55,4 @@
 
   <br>
 
-  <% if can? :create, @provider_article %>
-      <%= button_to 'Agregar Articulo a lista de Proveedor', new_provider_article_path , class: "btn", :method => :get   %>
-  <% end %>
 </div>

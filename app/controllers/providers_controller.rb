@@ -92,7 +92,6 @@ class ProvidersController < ApplicationController
 
   def create_multiple_articles
     items = params[:create][:articulos]
-
     items.each do |i|
       new_articulo_id = i.first
       new_data = i.second
@@ -127,7 +126,7 @@ class ProvidersController < ApplicationController
   def remove_multiple_articles
     ids_to_remove = params[:aval][:check]
     ids_to_remove.each do |p|
-      if p.second
+      if p.second == "true"
         current = CurrentProviderArticle.find_by_id(p.first)
         if current.update(:enabled => FALSE)
           flash_message(:success, ("Se a eliminado " << current.articulo.name.titlecase << " de la lista de disponibilidad de " << @provider.name.titlecase))

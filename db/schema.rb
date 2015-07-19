@@ -48,8 +48,11 @@ ActiveRecord::Schema.define(version: 20150620211232) do
   create_table "item_purchase_orders", force: :cascade do |t|
     t.integer  "current_provider_article_id", null: false
     t.integer  "purchase_order_id",           null: false
-    t.integer  "price",                       null: false
     t.integer  "amount",                      null: false
+    t.integer  "container_price",             null: false
+    t.integer  "unit_price",                  null: false
+    t.integer  "units_per_container",         null: false
+    t.integer  "total_price",                 null: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end

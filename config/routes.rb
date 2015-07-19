@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   resources :purchase_orders
-  resources :provider_articles
+  resources :provider_articles, only: [:index, :show, :edit, :destroy]
   resources :bodegas
   resources :articulos
   resources :providers do

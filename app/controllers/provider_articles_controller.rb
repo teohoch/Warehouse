@@ -1,4 +1,5 @@
 class ProviderArticlesController < ApplicationController
+  include ApplicationHelper
   before_action :set_provider_article, only: [:show, :edit, :update, :destroy]
 
   # GET /provider_articles
@@ -44,7 +45,6 @@ class ProviderArticlesController < ApplicationController
   # PATCH/PUT /provider_articles/1
   # PATCH/PUT /provider_articles/1.json
   def update
-
     @provider_article = ProviderArticle.new(provider_article_params)
     respond_to do |format|
       @provider_article.validity_date = DateTime.now
@@ -73,9 +73,13 @@ class ProviderArticlesController < ApplicationController
   # DELETE /provider_articles/1
   # DELETE /provider_articles/1.json
   def destroy
-    @provider_article.destroy
+    current_provider_article = CurrentProviderArticle.find(params[:current_id])
+    current_provider_article.enabled = false
+    if current_provider_article.save
+      flash_message(:success, 'Disponibilidad eliminada con exito')
+    end
     respond_to do |format|
-      format.html { redirect_to provider_articles_url, notice: 'Provider article was successfully destroyed.' }
+      format.html { redirect_to provider_articles_url }
       format.json { head :no_content }
     end
   end
