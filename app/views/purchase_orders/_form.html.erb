@@ -1,12 +1,23 @@
 <%= simple_form_for(@purchase_order) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.association :provider, label: "Proveedor:" %>
-        <%=  link_to_add_fields "Agregar Item", f, :item_purchase_orders, TRUE, "add_purchase_item" %>
-  </div>
+    <div class="row">
+      <%= f.association :provider, label: "Proveedor:" %>
+    </div>
+    <%=  link_to_add_fields "Agregar Item", f, :item_purchase_orders, TRUE, "add_purchase_item" %>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+    <div class="row">
+      <div class="col-md-3 pull-right">
+        <%= f.input :TotalAmount, as: :string, label: "Total", readonly: true, :wrapper_html =>{ :style => "text-align: center; display: none", :id => "order_total_wrap"}%>
+      </div>
+    </div>
+    <br>
+    <br>
+
+  <div class="form-actions row">
+    <div class="col-md-3 pull-right">
+      <%= f.button :submit, "Crear Orden de Compra", :data => { :confirm => '¿Seguro que desea crear una nueva orden de Compra?'}, :style => "display: none", :id => "submit_order",
+                   :title => "Crear nueva Orden de Compra." %>
+    </div>
   </div>
 <% end %>

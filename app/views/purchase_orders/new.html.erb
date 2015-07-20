@@ -1,8 +1,9 @@
 <div class="container">
+  <div class="row">
     <h1>Nueva Orden de Compra</h1>
-
-    <%= render 'form' %>
-    <br/>
-
+  </div>
+  <br>
+  <%= render 'form' %>
+  <br/>
     <%= button_to 'Regresar', purchase_orders_path, class: "btn", :method => :get  %>
 </div>

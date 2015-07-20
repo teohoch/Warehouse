@@ -50,6 +50,8 @@ gem 'jquery-datatables-rails', '~> 3.3.0'
 gem 'jquery-ui-rails'
 gem 'jquery-turbolinks'
 
+gem 'data-confirm-modal', github: 'ifad/data-confirm-modal'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -64,6 +66,7 @@ group :development, :test do
   gem "better_errors"
 
   gem "binding_of_caller"
+  gem 'meta_request'
 
 
 end

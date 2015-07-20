@@ -11,11 +11,12 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery_ujs
 //= require jquery.turbolinks
 //= require twitter/bootstrap
-//= require jquery_ujs
 //= require jquery-ui
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require turbolinks
+//= require data-confirm-modal
 //= require_tree .

@@ -29,6 +29,6 @@ module ApplicationHelper
     fields = f.fields_for(association, new_object, child_index: id) do |builder|
       render(association.to_s.singularize + "_fields", f: builder)
     end
-    link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")}, style: "display: #{hidden ? "none" : "visible"}", id: element_id )
+    link_to(name, '#', class: "add_fields btn btn-sm btn-default", data: {id: id, fields: fields.gsub("\n", "")}, style: "display: #{hidden ? "none" : "visible"}; margin-left: 0px", id: element_id )
   end
 end
