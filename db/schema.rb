@@ -46,18 +46,18 @@ ActiveRecord::Schema.define(version: 20150620211232) do
   add_index "current_provider_articles", ["provider_id"], name: "index_current_provider_articles_on_provider_id", using: :btree
 
   create_table "item_purchase_orders", force: :cascade do |t|
-    t.integer  "current_provider_article_id", null: false
-    t.integer  "purchase_order_id",           null: false
-    t.integer  "amount",                      null: false
-    t.integer  "container_price",             null: false
-    t.integer  "unit_price",                  null: false
-    t.integer  "units_per_container",         null: false
-    t.integer  "total_price",                 null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.integer  "provider_article_id",             null: false
+    t.integer  "purchase_order_id",               null: false
+    t.integer  "amount",              default: 0, null: false
+    t.integer  "container_price",                 null: false
+    t.integer  "unit_price",                      null: false
+    t.integer  "units_per_container",             null: false
+    t.integer  "total_price",                     null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
-  add_index "item_purchase_orders", ["current_provider_article_id"], name: "index_item_purchase_orders_on_current_provider_article_id", using: :btree
+  add_index "item_purchase_orders", ["provider_article_id"], name: "index_item_purchase_orders_on_provider_article_id", using: :btree
   add_index "item_purchase_orders", ["purchase_order_id"], name: "index_item_purchase_orders_on_purchase_order_id", using: :btree
 
   create_table "lotes", force: :cascade do |t|
@@ -157,7 +157,7 @@ ActiveRecord::Schema.define(version: 20150620211232) do
   add_foreign_key "current_provider_articles", "articulos"
   add_foreign_key "current_provider_articles", "provider_articles"
   add_foreign_key "current_provider_articles", "providers"
-  add_foreign_key "item_purchase_orders", "current_provider_articles"
+  add_foreign_key "item_purchase_orders", "provider_articles"
   add_foreign_key "item_purchase_orders", "purchase_orders"
   add_foreign_key "provider_articles", "articulos"
   add_foreign_key "provider_articles", "providers"

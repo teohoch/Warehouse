@@ -2,7 +2,7 @@
 
 <div hidden class="form-inputs row">
   <div class="col-md-3  ">
-    <%= f.association :current_provider_article, label: "Articulo", collection: Provider.all, as: :grouped_select, group_method: :available_articles, :input_html => { :id => "article_select"}%>
+    <%= f.association :provider_article, label: "Articulo", collection: Provider.all, as: :grouped_select, group_method: :available_articles, :input_html => { :id => "article_select"}%>
   </div>
   <div class="col-md-2">
     <%= f.input :amount, label: "Cantidad", :input_html => {:min => "0", :style => "text-align: center"} %>

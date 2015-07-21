@@ -11,7 +11,7 @@ jQuery ->
 
   Enabler = ->
     if current_count==0
-      $("#purchase_order_provider_id").removeAttr('disabled')
+      $("#purchase_order_provider_id").removeAttr('readonly')
       $("#order_total_wrap").fadeOut(200)
       $("#submit_order").fadeOut(200)
       $("#submit_order").fadeOut(200)
@@ -66,7 +66,7 @@ jQuery ->
     event.preventDefault()
 
   $('form').on 'click', '.add_fields', (event) ->
-    $("#purchase_order_provider_id").prop("disabled","disabled")
+    $("#purchase_order_provider_id").prop("readonly","readonly")
     regexp = new RegExp($(this).data('id'), 'g')
     reg = new RegExp('article_select','g')
     $(this).before($(this).data('fields').replace(regexp, number_items).replace(reg, 'article_select' + number_items))

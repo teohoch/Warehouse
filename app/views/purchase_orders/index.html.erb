@@ -1,5 +1,4 @@
 <div class="container">
-  <p id="notice"><%= notice %></p>
 
   <h1>Listado de Ordenes de Compra</h1>
 
@@ -8,6 +7,7 @@
     <tr>
                 <th>Usuario</th>
                 <th>Proveedor</th>
+                <th>Fecha de Creacion</th>
                 <th>Fecha de Envio</th>
                 <th>Monto Total</th>
             <!-- ver-->
@@ -26,8 +26,9 @@
     <tbody>
     <% @purchase_orders.each do |purchase_order| %>
     <tr>
-                <td><%= purchase_order.user %></td>
-                <td><%= purchase_order.provider %></td>
+                <td><%= purchase_order.user.email %></td>
+                <td><%= purchase_order.provider.name %></td>
+                <td><%= purchase_order.created_at %></td>
                 <td><%= purchase_order.SubmitDate %></td>
                 <td><%= purchase_order.TotalAmount %></td>
       

@@ -15,6 +15,10 @@ class Provider < ActiveRecord::Base
   validates_presence_of :name, :address, :phone, :rut, :message => I18n.t(:invalid_blank)
   validates_with RUTValidator
 
+  def to_label
+    return self.name
+  end
+
   def available_articles
     return CurrentProviderArticle.where(:provider_id =>self.id, :enabled => true)
   end

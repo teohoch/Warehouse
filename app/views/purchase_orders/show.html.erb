@@ -1,31 +1,29 @@
 <div class="container">
-    <p id="notice"><%= notice %></p>
-
-            <p>
+    <p>
       <strong>User:</strong>
       <%= @purchase_order.user %>
     </p>
 
-            <p>
+    <p>
       <strong>Provider:</strong>
       <%= @purchase_order.provider %>
     </p>
 
-            <p>
+    <p>
       <strong>Submitdate:</strong>
       <%= @purchase_order.SubmitDate %>
     </p>
 
-            <p>
+    <p>
       <strong>Totalamount:</strong>
       <%= @purchase_order.TotalAmount %>
     </p>
 
-      <br/>
-  <div style="float:left;">
-    <%= button_to 'Editar', edit_purchase_order_path(@purchase_order), class: "btn", :method => :get   %>
-  </div>
-  <div style="float: left;margin-left: 2%;">
-    <%= button_to 'Regresar', purchase_orders_path, class: "btn", :method => :get  %>
-  </div>
+    <br/>
+    <div style="float:left;">
+       <%= button_to 'Editar', edit_purchase_order_path(@purchase_order), class: "btn", :method => :get   %>
+    </div>
+    <div style="float: left;margin-left: 2%;">
+        <%= button_to 'Regresar', purchase_orders_path, class: "btn", :method => :get  %>
+    </div>
 </div>
