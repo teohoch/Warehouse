@@ -20,4 +20,12 @@ class ProviderArticle < ActiveRecord::Base
     end
   end
 
+  def updated_version
+    CurrentProviderArticle.where(:articulo_id => self.articulo_id, :provider_id => self.provider_id).limit(1)[0].provider_article
+  end
+
+  def to_label
+      self.articulo.name
+  end
+
 end

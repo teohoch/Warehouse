@@ -2,14 +2,14 @@
   <%= f.error_notification %>
 
     <div class="row">
-      <%= f.association :provider, label: "Proveedor:" %>
+      <%= f.association :provider, label: "Proveedor:", readonly: true, :input_html => { :data => { :existing_items =>@purchase_order.article_number }}%>
     </div>
     <%= f.fields_for :item_purchase_orders do |it| %>
         <%= render 'item_purchase_order_fields_edit', f: it %>
     <% end %>
 
 
-    <%=  link_to_add_fields "Agregar Item", f, :item_purchase_orders, TRUE, "add_purchase_item" %>
+    <%=  link_to_add_fields "Agregar Item", f, :item_purchase_orders, FALSE, "add_purchase_item" %>
 
     <div class="row">
       <div class="col-md-3 pull-right">
@@ -21,8 +21,8 @@
 
   <div class="form-actions row">
     <div class="col-md-3 pull-right">
-      <%= f.button :submit, "Crear Orden de Compra", :data => { :confirm => '¿Seguro que desea crear una nueva orden de Compra?'}, :style => "display: none", :id => "submit_order",
-                   :title => "Crear nueva Orden de Compra." %>
+      <%= f.button :submit, "Editar Orden de Compra", :data => { :confirm => '¿Seguro que desea editar esta orden de Compra?'}, :style => "display: none", :id => "submit_order",
+                   :title => "Editar Orden de Compra" %>
     </div>
   </div>
 <% end %>

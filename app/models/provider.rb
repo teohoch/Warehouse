@@ -20,6 +20,11 @@ class Provider < ActiveRecord::Base
   end
 
   def available_articles
-    return CurrentProviderArticle.where(:provider_id =>self.id, :enabled => true)
+
+    available = Array.new()
+    for item in CurrentProviderArticle.where(:provider_id =>self.id, :enabled => true)
+      available.push(item.provider_article)
+    end
+    return available
   end
 end

@@ -1,5 +1,7 @@
 class PurchaseOrdersController < ApplicationController
   before_action :set_purchase_order, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
+  include ApplicationHelper
 
   # GET /purchase_orders
   # GET /purchase_orders.json
@@ -25,10 +27,13 @@ class PurchaseOrdersController < ApplicationController
   # POST /purchase_orders.json
   def create
 
+    #TODO Change the way the total cost is calculated, currently is calculated client-side, move to server side
+
     provider_id = params[:purchase_order][:provider_id]
     items = params[:purchase_order][:item_purchase_orders_attributes]
     clean_items = Array.new
     items_success = Array.new
+    error = false
 
     items.each do |item|
       if not to_boolean(item[1][:_destroy]) and item[1][:amount].to_i>0
@@ -36,63 +41,87 @@ class PurchaseOrdersController < ApplicationController
       end
     end
 
-    user_id = current_user.id
-    provider_id = params[:purchase_order][:provider_id]
-    params[:purchase_order][:TotalAmount].slice!(0)
-    total_amount = params[:purchase_order][:TotalAmount].to_i
+    if clean_items.length > 0
+      user_id = current_user.id
+      provider_id = params[:purchase_order][:provider_id]
+      params[:purchase_order][:TotalAmount].slice!(0)
+      total_amount = params[:purchase_order][:TotalAmount].to_i
 
-    @purchase_order = PurchaseOrder.new(:user_id => user_id, :provider_id => provider_id, :TotalAmount => total_amount)
+      @purchase_order = PurchaseOrder.new(:user_id => user_id, :provider_id => provider_id, :TotalAmount => total_amount)
 
-    if @purchase_order.save
-      clean_items.each do |citem|
-        item = CurrentProviderArticle.find(citem[:provider_article_id]).provider_article
-        amount = citem[:amount].to_i
 
-        item_total_amount = citem[:total_price]
-        item_total_amount.slice!(0)
-        item_total_amount = item_total_amount.to_i
 
-        new_item = ItemPurchaseOrder.new(:provider_article_id => item.id, :purchase_order_id => @purchase_order.id,
-                                         :amount => amount, :container_price => item.container_price,
-                                         :unit_price => item.unit_price,
-                                         :units_per_container => item.units_per_container,
-                                         :total_price => item_total_amount)
-        local_success = new_item.save
-        id_item = local_success ? new_item.id : nil
-        items_success.push([local_success,id_item])
+      if @purchase_order.save
+        clean_items.each do |citem|
+          item = ProviderArticle.find(citem[:provider_article_id]).provider_article
+          amount = citem[:amount].to_i
+
+          item_total_amount = citem[:total_price]
+          item_total_amount.slice!(0)
+          item_total_amount = item_total_amount.to_i
+
+          new_item = ItemPurchaseOrder.new(:provider_article_id => item.id, :purchase_order_id => @purchase_order.id,
+                                           :amount => amount, :container_price => item.container_price,
+                                           :unit_price => item.unit_price,
+                                           :units_per_container => item.units_per_container,
+                                           :total_price => item_total_amount)
+          local_success = new_item.save
+          id_item = local_success ? new_item.id : nil
+          items_success.push([local_success,id_item])
+        end
       end
-    end
-    overall_success = true
-    items_success.each do |check|
-      overall_success = overall_success and check
-    end
-    if not overall_success
+      overall_success = true
+      items_success.each do |check|
+        overall_success = overall_success and check
+      end
+      if not overall_success
+        @purchase_order.destroy
+      end
 
+    else
+      flash_message(:error, "La orden de compra debe tener por lo menos 1 (un) elemento.")
+      error = true
     end
 
     respond_to do |format|
-      if @purchase_order.save
-        format.html { redirect_to @purchase_order, notice: 'Purchase order was successfully created.' }
-        format.json { render :show, status: :created, location: @purchase_order }
+      if not error
+        flash_message(:success, "Orden de compra creada con exito")
+        format.html { redirect_to @purchase_order}
       else
-        format.html { render :new }
-        format.json { render json: @purchase_order.errors, status: :unprocessable_entity }
+        format.html { render :new}
       end
+
     end
+
   end
 
   # PATCH/PUT /purchase_orders/1
   # PATCH/PUT /purchase_orders/1.json
   def update
-    respond_to do |format|
-      if @purchase_order.update(purchase_order_params)
-        format.html { redirect_to @purchase_order, notice: 'Purchase order was successfully updated.' }
-        format.json { render :show, status: :ok, location: @purchase_order }
+    all_articles = params[:purchase_order][:item_purchase_orders_attributes]
+
+    # Separate articles to be deleted, from the rest
+    workable_articles = Array.new()
+    all_articles.each do |key, article|
+      if article[:_destroy] == "false"
+        workable_articles.push(article)
       else
-        format.html { render :edit }
-        format.json { render json: @purchase_order.errors, status: :unprocessable_entity }
+        if article[:id]
+          ItemPurchaseOrder.find(article[:id]).destroy()
+        end
       end
     end
+
+
+    # Calculate the total cost of the Purchase Order
+    total_cost = 0
+    for item in workable_articles
+      total_cost = total_cost + ProviderArticle.find(item[:provider_article_id]).container_price * item[:amount].to_i
+    end
+    # Update the total cost of the Purchase Order
+    @purchase_order.update(:TotalAmount => total_cost)
+
+
   end
 
   # DELETE /purchase_orders/1

@@ -2,7 +2,7 @@
 
 <div class="form-inputs row">
   <div class="col-md-3  ">
-    <%= f.association :provider_article, label: "Articulo", collection: Provider.all, as: :grouped_select, group_method: :available_articles, :input_html => { :id => "article_select"}%>
+    <%= f.association :provider_article, label: "Articulo", readonly: true, :input_html => { :id => "article_select"}%>
   </div>
   <div class="col-md-2">
     <%= f.input :amount, label: "Cantidad", :input_html => {:min => "0", :style => "text-align: center"} %>
@@ -17,6 +17,8 @@
     <%= f.input :total_price,  as: :string, label: "Precio Total", readonly: true, :input_html => { :style => "text-align: center"} %>
   </div>
   <div class="col-md-1">
+    <%= f.hidden_field :id %>
+    <%= f.hidden_field :current_version_id %>
     <%= f.hidden_field :_destroy %>
     <%= link_to '#', class: "btn btn-default remove_fields", :style => "margin-top: 20px; margin-left: 0px" do %>
         <i class="glyphicon glyphicon-remove"></i>
