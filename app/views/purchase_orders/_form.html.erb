@@ -1,5 +1,16 @@
 <%= simple_form_for(@purchase_order) do |f| %>
   <%= f.error_notification %>
+    <div class="row">
+      <%= f.input :sendLocation, label: "Direccion de envio",:label_html =>{:class => "wide"} %>
+    </div>
+
+    <div class="row">
+      <%= f.input :paymentMethod, label: "Metodo de Pago", :label_html =>{:class => "wide"} %>
+    </div>
+
+    <div class="row">
+      <%= f.input :sendDate, as: :string, label: "Fecha de Entrega", :label_html =>{:class => "wide"} %>
+    </div>
 
     <div class="row">
       <%= f.association :provider, label: "Proveedor:" %>

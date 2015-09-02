@@ -1,5 +1,12 @@
 <%= simple_form_for(@purchase_order) do |f| %>
   <%= f.error_notification %>
+    <div class="row">
+      <%= f.input :sendLocation, label: "Direccion de envio",:label_html =>{:class => "wide"} %>
+    </div>
+
+    <div class="row">
+      <%= f.input :paymentMethod, label: "Metodo de Pago", :label_html =>{:class => "wide"} %>
+    </div>
 
     <div class="row">
       <%= f.association :provider, label: "Proveedor:", readonly: true, :input_html => { :data => { :existing_items =>@purchase_order.article_number }}%>

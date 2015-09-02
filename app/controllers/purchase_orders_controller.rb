@@ -12,11 +12,20 @@ class PurchaseOrdersController < ApplicationController
   # GET /purchase_orders/1
   # GET /purchase_orders/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = PurchaseOrderPdf.new(@purchase_order, view_context)
+        send_data pdf.render, filename: "order_#{@purchase_order}.pdf",
+                  type: "application/pdf",
+                  disposition: "inline"
+      end
+    end
   end
 
   # GET /purchase_orders/new
   def new
-    @purchase_order = PurchaseOrder.new
+    @purchase_order = PurchaseOrder.new(:sendLocation => current_user.location )
   end
 
   # GET /purchase_orders/1/edit
@@ -47,13 +56,13 @@ class PurchaseOrdersController < ApplicationController
       params[:purchase_order][:TotalAmount].slice!(0)
       total_amount = params[:purchase_order][:TotalAmount].to_i
 
-      @purchase_order = PurchaseOrder.new(:user_id => user_id, :provider_id => provider_id, :TotalAmount => total_amount)
+      @purchase_order = PurchaseOrder.new(:user_id => user_id, :provider_id => provider_id, :TotalAmount => total_amount, :paymentMethod => params[:purchase_order][:paymentMethod], :sendLocation => params[:purchase_order][:sendLocation])
 
 
 
       if @purchase_order.save
         clean_items.each do |citem|
-          item = ProviderArticle.find(citem[:provider_article_id]).provider_article
+          item = ProviderArticle.find(citem[:provider_article_id])
           amount = citem[:amount].to_i
 
           item_total_amount = citem[:total_price]
@@ -101,14 +110,45 @@ class PurchaseOrdersController < ApplicationController
     all_articles = params[:purchase_order][:item_purchase_orders_attributes]
 
     # Separate articles to be deleted, from the rest
+    # If _destroy flag is set, the article is either ignored or destroyed, depending if it exists.
     workable_articles = Array.new()
     all_articles.each do |key, article|
       if article[:_destroy] == "false"
-        workable_articles.push(article)
+        if article[:amount].to_i > 0
+          workable_articles.push(article)
+        else
+          if article[:id]
+            ItemPurchaseOrder.find(article[:id]).destroy()
+          end
+        end
       else
         if article[:id]
           ItemPurchaseOrder.find(article[:id]).destroy()
         end
+      end
+    end
+
+    workable_articles.each do |article|
+      item = ProviderArticle.find(article[:provider_article_id])
+      article_total_price = item.container_price * article[:amount].to_i
+      if article[:id]
+        old_article = ItemPurchaseOrder.find(article[:id])
+
+        old_article.update(:provider_article => item,
+                           :amount => article[:amount].to_i,
+                           :container_price => item.container_price,
+                           :unit_price => item.unit_price,
+                           :units_per_container => item.units_per_container,
+                           :total_price => article_total_price)
+      else
+        new_item = ItemPurchaseOrder.new(:provider_article_id => item.id,
+                                         :purchase_order_id => @purchase_order.id,
+                                         :amount => article[:amount].to_i,
+                                         :container_price => item.container_price,
+                                         :unit_price => item.unit_price,
+                                         :units_per_container => item.units_per_container,
+                                         :total_price => article_total_price)
+        local_success = new_item.save
       end
     end
 
@@ -121,7 +161,10 @@ class PurchaseOrdersController < ApplicationController
     # Update the total cost of the Purchase Order
     @purchase_order.update(:TotalAmount => total_cost)
 
-
+    respond_to do |format|
+        flash_message(:success, "Orden de compra actualizada con exito")
+        format.html { redirect_to @purchase_order}
+    end
   end
 
   # DELETE /purchase_orders/1

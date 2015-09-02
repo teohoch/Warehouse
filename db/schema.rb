@@ -93,13 +93,16 @@ ActiveRecord::Schema.define(version: 20150620211232) do
   end
 
   create_table "purchase_orders", force: :cascade do |t|
-    t.integer  "user_id",                            null: false
-    t.integer  "provider_id",                        null: false
+    t.integer  "user_id",                              null: false
+    t.integer  "provider_id",                          null: false
     t.date     "SubmitDate"
-    t.integer  "TotalAmount", default: 0,            null: false
-    t.string   "Status",      default: "No Enviada", null: false
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.integer  "TotalAmount",   default: 0,            null: false
+    t.string   "Status",        default: "No Enviada", null: false
+    t.string   "paymentMethod", default: "",           null: false
+    t.string   "sendLocation",  default: "",           null: false
+    t.date     "sendDate",      default: '2015-09-01', null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
   add_index "purchase_orders", ["provider_id"], name: "index_purchase_orders_on_provider_id", using: :btree
@@ -131,6 +134,8 @@ ActiveRecord::Schema.define(version: 20150620211232) do
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
+    t.string   "name",                   default: "", null: false
+    t.string   "location",               default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"

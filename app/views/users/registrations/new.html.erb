@@ -10,6 +10,12 @@
       </div>
 
       <div class="field">
+        <%= f.label "Nombre" %><br/>
+        <%= f.input :name, autofocus: true %>
+      </div>
+
+
+      <div class="field">
         <%= f.label :password %>
         <% if @validatable %>
             <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -20,6 +26,11 @@
       <div class="field">
         <%= f.label :password_confirmation %><br/>
         <%= f.password_field :password_confirmation, autocomplete: "off" %>
+      </div>
+
+      <div class="field">
+        <%= f.label "Ubicacion" %><br/>
+        <%= f.input :location, autofocus: true %>
       </div>
 
       <br/>

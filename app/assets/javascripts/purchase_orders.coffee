@@ -79,22 +79,17 @@ jQuery ->
           $("#add_purchase_item").show())
 
   Price_updater = (loc) ->
-    updated_id = $(loc).find("input[type=hidden][id$='current_version_id']").val()
-    updated_article = null
-    $.getJSON("/provider_articles/"+updated_id+".json",{},(resp_data,status) ->
-      updated_article = resp_data
-      $(loc).find("input[id$='container_price']").val(updated_article.container_price)
-      $(loc).find("input[id$='units_per_container']").val(updated_article.units_per_container)
+    if loc
+      updated_id = $(loc).find("input[type=hidden][id$='current_version_id']").val()
+      updated_article = null
+      $.getJSON("/provider_articles/"+updated_id+".json",{},(resp_data,status) ->
+        updated_article = resp_data
+        $(loc).find("input[id$='container_price']").val(updated_article.container_price)
+        $(loc).find("input[id$='units_per_container']").val(updated_article.units_per_container)
     )
 
 
   Price_updater($(".form-inputs.row")[0])
-
-
-
-
-
-
 
 
   $('form').on 'click', '.remove_fields', (event) ->
@@ -155,12 +150,8 @@ jQuery ->
 
 
 
-
-
-
-
-
-
+  $("#purchase_order_sendDate").datepicker
+    dateFormat: 'yy-mm-dd'
   $('#purchase_orders').dataTable(
     {
       "language": {
