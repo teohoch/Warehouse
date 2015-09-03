@@ -11,14 +11,14 @@
 
       <div class="field">
         <%= f.label "Nombre" %><br/>
-        <%= f.input :name, autofocus: true %>
+        <%= f.text_field :name, autofocus: true %>
       </div>
 
 
       <div class="field">
         <%= f.label :password %>
         <% if @validatable %>
-            <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <em>(<%= @minimum_password_length %> caracteres minimo)</em>
         <% end %><br/>
         <%= f.password_field :password, autocomplete: "off" %>
       </div>
@@ -30,7 +30,7 @@
 
       <div class="field">
         <%= f.label "Ubicacion" %><br/>
-        <%= f.input :location, autofocus: true %>
+        <%= f.text_field :location, autofocus: true %>
       </div>
 
       <br/>

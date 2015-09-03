@@ -20,7 +20,7 @@ class PurchaseOrderPdf < Prawn::Document
   def order_number
     move_down 10
     text "Orden de Compra N°#{@order.id}", size: 30, style: :bold
-    text_box "Fecha: " + Date.current.to_s, size: 10, :align => :right, :vposition => :top
+    text_box "Fecha: " + (@order.SubmitDate ? @order.SubmitDate.strftime("%d/%m/%Y") : Date.current.to_s), size: 10, :align => :right, :vposition => :top
     stroke_horizontal_line 0, 540
   end
 

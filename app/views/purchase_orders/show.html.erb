@@ -14,13 +14,18 @@
       <% if @purchase_order.SubmitDate == nil %>
         <%= "No enviada" %>
       <% else %>
-          <%= @purchase_order.SubmitDate %>
+          <%= @purchase_order.SubmitDate.strftime("%d/%m/%Y") %>
       <% end %>
     </p>
 
     <p>
+        <strong>Estado:</strong>
+        <%= @purchase_order.Status %>
+    </p>
+
+    <p>
       <strong>Costo Total:</strong>
-      <%= "$" + @purchase_order.TotalAmount.to_s %>
+      <%= number_to_currency(@purchase_order.TotalAmount, :precision => 0)%>
     </p>
 
     <br/>
@@ -44,10 +49,10 @@
         <tr>
           <td><%= item.provider_article.to_label %></td>
           <td><%= item.amount %></td>
-          <td><%= "$" +item.container_price.to_s  %></td>
-          <td><%= "$" +item.unit_price.to_s  %></td>
-          <td><%= item.units_per_container %></td>
-          <td><%= "$" +item.total_price.to_s  %></td>
+          <td style="text-align: center"><%= "$" +item.container_price.to_s  %></td>
+          <td style="text-align: right"><%= number_to_currency(item.unit_price, :precision => 0)%></td>
+          <td style="text-align: center"><%= item.units_per_container %></td>
+          <td style="text-align: right"><%= number_to_currency(item.total_price, :precision => 0)%></td>
 
 
         </tr>
@@ -59,9 +64,16 @@
   <div style="float:left;">
     <%= button_to 'Mostrar en PDF', purchase_order_path(@purchase_order, format: "pdf"), class: "btn", :method => :get   %>
   </div>
-  <div style="float:left;margin-left: 2%;">
-    <%= button_to 'Editar', edit_purchase_order_path(@purchase_order), class: "btn", :method => :get   %>
-  </div>
+  <% if can? :update, @purchase_order and @editable %>
+      <div style="float:left;margin-left: 2%;">
+        <%= button_to 'Editar', edit_purchase_order_path(@purchase_order), class: "btn", :method => :get   %>
+      </div>
+  <% end %>
+  <% if (can? :destroy,  @purchase_order) and @editable%>
+      <div style="float:left;margin-left: 2%;">
+        <%= button_to 'Eliminar', @purchase_order, class: "btn", method: :delete, data: { confirm: '¿Esta seguro que desea eliminar esta orden de compra?' } %>
+      </div>
+  <% end %>
     <div style="float: left;margin-left: 2%;">
         <%= button_to 'Regresar', purchase_orders_path, class: "btn", :method => :get  %>
     </div>

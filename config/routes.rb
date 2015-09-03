@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :purchase_orders
+  resources :purchase_orders do
+    member do
+      post "sending"
+    end
+  end
   resources :provider_articles, only: [:index, :show, :edit, :destroy]
   resources :bodegas
   resources :articulos
