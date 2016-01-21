@@ -82,4 +82,4 @@ production:
   <<: *default
   database: warehouse_production
   username: teohoch
-  password: <%= ENV['WAREHOUSE_DATABASE_PASSWORD'] %>
+  password: Carl.Sagan
