@@ -30,6 +30,7 @@ class PurchaseOrdersController < ApplicationController
   # GET /purchase_orders/new
   def new
     @purchase_order = PurchaseOrder.new(:sendLocation => current_user.location )
+    sdfsdf= sdfs
   end
 
   # GET /purchase_orders/1/edit
@@ -144,7 +145,6 @@ class PurchaseOrdersController < ApplicationController
         article_total_price = item.container_price * article[:amount].to_i
         if article[:id]
           old_article = ItemPurchaseOrder.find(article[:id])
-
           old_article.update(:provider_article => item,
                              :amount => article[:amount].to_i,
                              :container_price => item.container_price,
@@ -162,7 +162,6 @@ class PurchaseOrdersController < ApplicationController
           local_success = new_item.save
         end
       end
-
 
       # Calculate the total cost of the Purchase Order
       total_cost = 0

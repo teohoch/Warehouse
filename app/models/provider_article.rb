@@ -3,6 +3,7 @@ class ProviderArticle < ActiveRecord::Base
   belongs_to :articulo
   has_many :current_provider_articles
   has_many :item_purchase_orders
+  has_many :invoice_items
 
   attr_writer :current_enabled
 

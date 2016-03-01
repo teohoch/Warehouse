@@ -37,7 +37,7 @@
 		<type label="SET" length="1" sql="SET" quote=""/>
 		<type label="Bit" length="0" sql="bit" quote=""/>
 	</group>
-</datatypes><table x="1331" y="291" name="Existencias">
+</datatypes><table x="1209" y="248" name="Existencias">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -61,7 +61,7 @@
 </key>
 <comment>Listado de las existencias reales en el Laboratorio</comment>
 </table>
-<table x="988" y="388" name="Articulos">
+<table x="880" y="259" name="Articulos">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -79,7 +79,7 @@
 </key>
 <comment>Lista de todos los artículos en lista</comment>
 </table>
-<table x="832" y="751" name="Proveedores">
+<table x="735" y="725" name="Proveedores">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -100,7 +100,7 @@
 </key>
 <comment>Lista de todos los proveedores </comment>
 </table>
-<table x="1832" y="418" name="Bodega">
+<table x="1710" y="375" name="Bodega">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -118,7 +118,7 @@
 </key>
 <comment>Listado de las bodegas existentes</comment>
 </table>
-<table x="1544" y="464" name="Lote">
+<table x="1422" y="421" name="Lote">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -136,7 +136,7 @@
 </key>
 <comment>Folio o calibración del reactivo o elemento</comment>
 </table>
-<table x="379" y="921" name="Factura">
+<table x="482" y="560" name="Factura">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -156,7 +156,8 @@
 <default>NULL</default></row>
 <row name="id_orden_compra" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default></row>
+<default>NULL</default><relation table="Orden de Compra" row="id" />
+</row>
 <row name="Fecha_recibido" null="1" autoincrement="0">
 <datatype>DATETIME</datatype>
 <default>NULL</default></row>
@@ -167,7 +168,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="446" y="462" name="Orden de Compra">
+<table x="400" y="259" name="Orden de Compra">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -175,6 +176,9 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="Usuario" row="id" />
 </row>
+<row name="metodo de pago" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
 <row name="id_proveedor" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="Proveedores" row="id" />
@@ -189,7 +193,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="314" y="402" name="Usuario">
+<table x="238" y="257" name="Usuario">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -209,13 +213,13 @@
 <part>id</part>
 </key>
 </table>
-<table x="679" y="222" name="item_orden_de_compra">
+<table x="648" y="306" name="item_orden_de_compra">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="id_articulo" null="1" autoincrement="0">
+<row name="id_articulo_proveedor" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="Articulos" row="id" />
+<default>NULL</default><relation table="Proveedor_Articulo" row="id" />
 </row>
 <row name="id_orden_compra" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -231,6 +235,9 @@
 <datatype>DATETIME</datatype>
 <default>NULL</default></row>
 <row name="amount" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="precio_unitario" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
@@ -255,7 +262,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1011" y="64" name="Retiro_Suministro">
+<table x="889" y="21" name="Retiro_Suministro">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -277,7 +284,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1595" y="114" name="Stock_ideal">
+<table x="1473" y="71" name="Stock_ideal">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -295,7 +302,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1275" y="118" name="Ideal_articulo">
+<table x="1153" y="75" name="Ideal_articulo">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -314,7 +321,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1024" y="571" name="Proveedor_Articulo">
+<table x="1094" y="488" name="Proveedor_Articulo">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -342,7 +349,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="383" y="707" name="item_factura">
+<table x="35" y="668" name="item_factura">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -352,16 +359,22 @@
 </row>
 <row name="id_articulo" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="Articulos" row="id" />
+<default>NULL</default><relation table="Proveedor_Articulo" row="id" />
 </row>
 <row name="precio" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="amount" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="precio_unitario" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="1545" y="684" name="Variacion">
+<table x="1423" y="641" name="Variacion">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -399,7 +412,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="362" y="1147" name="Pago">
+<table x="244" y="768" name="Pago">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>

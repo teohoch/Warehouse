@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
 
+  resources :invoices, :except => [:new] do
+    post 'new', on: :collection, as: 'new'
+  end
   resources :purchase_orders do
     member do
-      post "sending"
+      post 'sending'
     end
   end
   resources :provider_articles, only: [:index, :show, :edit, :destroy]

@@ -64,6 +64,11 @@
   <div style="float:left;">
     <%= button_to 'Mostrar en PDF', purchase_order_path(@purchase_order, format: "pdf"), class: "btn", :method => :get   %>
   </div>
+
+  <div style="float:left; margin-left: 2%;">
+    <%= button_to "Recepcionar Factura", new_invoices_path, class: "btn", :method => :post,  params: {"purchase_order_id"=> @purchase_order.id} %>
+  </div>
+
   <% if can? :update, @purchase_order and @editable %>
       <div style="float:left;margin-left: 2%;">
         <%= button_to 'Editar', edit_purchase_order_path(@purchase_order), class: "btn", :method => :get   %>

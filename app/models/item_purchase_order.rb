@@ -6,4 +6,9 @@ class ItemPurchaseOrder < ActiveRecord::Base
     #The most Updated version of this Provider_article
     self.provider_article.updated_version.id
   end
+
+  def to_label
+    self.provider_article.articulo.name
+  end
+
 end

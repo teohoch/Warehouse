@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150620211232) do
+ActiveRecord::Schema.define(version: 20160215185825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,36 @@ ActiveRecord::Schema.define(version: 20150620211232) do
   add_index "current_provider_articles", ["articulo_id"], name: "index_current_provider_articles_on_articulo_id", using: :btree
   add_index "current_provider_articles", ["provider_article_id"], name: "index_current_provider_articles_on_provider_article_id", using: :btree
   add_index "current_provider_articles", ["provider_id"], name: "index_current_provider_articles_on_provider_id", using: :btree
+
+  create_table "invoice_items", force: :cascade do |t|
+    t.integer  "total_price"
+    t.integer  "amount"
+    t.integer  "unitary_price"
+    t.integer  "invoice_id"
+    t.integer  "provider_article_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "invoice_items", ["invoice_id"], name: "index_invoice_items_on_invoice_id", using: :btree
+  add_index "invoice_items", ["provider_article_id"], name: "index_invoice_items_on_provider_article_id", using: :btree
+
+  create_table "invoices", force: :cascade do |t|
+    t.integer  "provider_id"
+    t.string   "num_factura"
+    t.integer  "user_id"
+    t.string   "state"
+    t.integer  "purchase_order_id"
+    t.date     "received_date"
+    t.date     "payment_deadline"
+    t.date     "payment_date"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "invoices", ["provider_id"], name: "index_invoices_on_provider_id", using: :btree
+  add_index "invoices", ["purchase_order_id"], name: "index_invoices_on_purchase_order_id", using: :btree
+  add_index "invoices", ["user_id"], name: "index_invoices_on_user_id", using: :btree
 
   create_table "item_purchase_orders", force: :cascade do |t|
     t.integer  "provider_article_id",             null: false
@@ -162,6 +192,11 @@ ActiveRecord::Schema.define(version: 20150620211232) do
   add_foreign_key "current_provider_articles", "articulos"
   add_foreign_key "current_provider_articles", "provider_articles"
   add_foreign_key "current_provider_articles", "providers"
+  add_foreign_key "invoice_items", "invoices"
+  add_foreign_key "invoice_items", "provider_articles"
+  add_foreign_key "invoices", "providers"
+  add_foreign_key "invoices", "purchase_orders"
+  add_foreign_key "invoices", "users"
   add_foreign_key "item_purchase_orders", "provider_articles"
   add_foreign_key "item_purchase_orders", "purchase_orders"
   add_foreign_key "provider_articles", "articulos"

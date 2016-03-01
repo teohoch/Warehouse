@@ -12,6 +12,7 @@ class Provider < ActiveRecord::Base
   has_many :provider_articles
   has_many :current_provider_articles
   has_many :purchase_orders
+  has_many :invoices
   validates_presence_of :name, :address, :phone, :rut, :message => I18n.t(:invalid_blank)
   validates_with RUTValidator
 
