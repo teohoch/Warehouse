@@ -1,0 +1,37 @@
+<%= simple_form_for(@invoice) do |f| %>
+  <%= f.error_notification %>
+
+    <div class="row">
+      <div class="form-group string optional readonly invoice_provider">
+        <label class="string optional wide control-label" for="invoice_provider">Proveedor</label>
+        <h4 style="margin-left: 10px; margin-bottom: 2px"><%= @invoice.provider.name %></h4>
+      </div>
+    </div>
+
+    <%= f.input :provider, :as => :hidden, :input_html => { :value => @invoice.provider_id} %>
+
+    <div class="row">
+      <%= f.input :num_factura, label: "Numero de Factura", :label_html =>{:class => "wide"}  %>
+    </div>
+
+    <div class="row">
+      <%= f.input :received_date, as: :string, label: "Fecha de Recepcion", readonly: true, :label_html =>{:class => "wide"}  %>
+    </div>
+
+    <div class="row">
+      <%= f.input :payment_deadline, as: :string, label: "Fecha Limite de Pago", readonly: true, :label_html =>{:class => "wide"}  %>
+    </div>
+
+    <%= f.simple_fields_for :invoice_items do |it| %>
+        <%= @invoice_items%>
+        <%= render 'items_invoice_edit', f: it %>
+    <% end %>
+
+    <div class="form-actions row">
+      <div class="pull-right">
+      <%= f.button :submit, :data => { :confirm => '¿Esta seguro de los datos de esta Factura?'},
+                   :title => "Crear nueva Factura."  %>
+    </div>
+  </div>
+<% end %>
+

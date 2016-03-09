@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  total_price: 1
+  amount: 1
+  unitary_price: 1
+  invoice_id: 
+  provider_article_id: 
+
+two:
+  total_price: 1
+  amount: 1
+  unitary_price: 1
+  invoice_id: 
+  provider_article_id: 

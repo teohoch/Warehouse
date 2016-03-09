@@ -1,6 +1,17 @@
 
+
 <div class="form-inputs row">
     <div class="col-md-3  ">
-        <%= f.input :provider %>
+        <%= f.association :provider_article, readonly: true, :input_html => { :id => "article_select"}%>
     </div>
+    <div class="col-md-2">
+        <%= f.input :amount, label: "Cantidad", :input_html => {:min => "0", :style => "text-align: center"} %>
+    </div>
+    <div class="col-md-2">
+        <%= f.input :unitary_price, as: :string, label: "Precio Cont.", readonly: true, :input_html => { :style => "text-align: center"}%>
+    </div>
+    <div class="col-md-2">
+        <%= f.input :total_price,  as: :string, label: "Precio Total", readonly: true, :input_html => { :style => "text-align: center"} %>
+    </div>
+
 </div>

@@ -30,7 +30,6 @@ class PurchaseOrdersController < ApplicationController
   # GET /purchase_orders/new
   def new
     @purchase_order = PurchaseOrder.new(:sendLocation => current_user.location )
-    sdfsdf= sdfs
   end
 
   # GET /purchase_orders/1/edit
@@ -40,6 +39,9 @@ class PurchaseOrdersController < ApplicationController
         flash_message(:error, "¡Esta orden de compra ya ha sido enviada al proveedor, no puede ser modificada!")
         format.html { redirect_to @purchase_order}
       end
+    else
+      @items = @purchase_order.item_purchase_orders
+
     end
   end
 

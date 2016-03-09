@@ -11,8 +11,9 @@
     <div class="row">
       <%= f.association :provider, label: "Proveedor:", readonly: true, :input_html => { :data => { :existing_items =>@purchase_order.article_number }}%>
     </div>
-    <%= f.fields_for @items do |it| %>
-        <%= render 'items_invoice_edit', f: it %>
+
+    <%= f.simple_fields_for :item_purchase_orders do |it| %>
+        <%= render 'item_purchase_order_fields_edit', f: it %>
     <% end %>
 
 

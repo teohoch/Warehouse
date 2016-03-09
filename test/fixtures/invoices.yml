@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  provider_id: 
+  num_factura: MyString
+  user_id: 
+  state: MyString
+  purchase_order_id: 
+  received_date: 2016-01-25
+  payment_deadline: 2016-01-25
+  payment_date: 2016-01-25
+
+two:
+  provider_id: 
+  num_factura: MyString
+  user_id: 
+  state: MyString
+  purchase_order_id: 
+  received_date: 2016-01-25
+  payment_deadline: 2016-01-25
+  payment_date: 2016-01-25

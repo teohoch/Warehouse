@@ -1,0 +1,14 @@
+<div class="container">
+  <h1>Editar Invoice</h1>
+
+  <%= render 'form' %>
+
+  <br/>
+
+  <div style="float:left;">
+    <%= button_to 'Mostrar', @invoice, class: "btn", :method => :get   %>
+  </div>
+  <div style="float: left;margin-left: 2%;">
+    <%= button_to 'Regresar', invoices_path, class: "btn", :method => :get   %>
+  </div>
+</div>

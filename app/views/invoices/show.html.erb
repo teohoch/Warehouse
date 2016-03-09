@@ -1,0 +1,51 @@
+<div class="container">
+    <p id="notice"><%= notice %></p>
+
+            <p>
+      <strong>Provider:</strong>
+      <%= @invoice.provider %>
+    </p>
+
+            <p>
+      <strong>Num factura:</strong>
+      <%= @invoice.num_factura %>
+    </p>
+
+            <p>
+      <strong>User:</strong>
+      <%= @invoice.user %>
+    </p>
+
+            <p>
+      <strong>State:</strong>
+      <%= @invoice.state %>
+    </p>
+
+            <p>
+      <strong>Purchase order:</strong>
+      <%= @invoice.purchase_order %>
+    </p>
+
+            <p>
+      <strong>Received date:</strong>
+      <%= @invoice.received_date %>
+    </p>
+
+            <p>
+      <strong>Payment deadline:</strong>
+      <%= @invoice.payment_deadline %>
+    </p>
+
+            <p>
+      <strong>Payment date:</strong>
+      <%= @invoice.payment_date %>
+    </p>
+
+      <br/>
+  <div style="float:left;">
+    <%= button_to 'Editar', edit_invoice_path(@invoice), class: "btn", :method => :get   %>
+  </div>
+  <div style="float: left;margin-left: 2%;">
+    <%= button_to 'Regresar', invoices_path, class: "btn", :method => :get  %>
+  </div>
+</div>
