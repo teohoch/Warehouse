@@ -151,7 +151,10 @@ jQuery ->
 
 
   $("#purchase_order_sendDate").datepicker
-    dateFormat: 'yy-mm-dd'
+    dateFormat: 'yy-mm-dd',
+    minDate: 0,
+    setDate: new Date()
+
   $('#purchase_orders').dataTable(
     {
       "language": {

@@ -10,7 +10,7 @@
     </div>
 
     <div class="row">
-      <%= f.input :sendDate, as: :string, label: "Fecha de Entrega", :label_html =>{:class => "wide"} %>
+      <%= f.input :sendDate, as: :string, label: "Fecha de Entrega", :label_html =>{:class => "wide"}, input_html: {value: Date.today}  %>
     </div>
 
     <div class="row">
@@ -19,7 +19,6 @@
     <%= f.fields_for :item_purchase_orders do |it| %>
         <%= render 'item_purchase_order_fields_edit', f: it %>
     <% end %>
-
 
     <%=  link_to_add_fields "Agregar Item", f, :item_purchase_orders, TRUE, "add_purchase_item" %>
 

@@ -29,7 +29,7 @@ class PurchaseOrdersController < ApplicationController
 
   # GET /purchase_orders/new
   def new
-    @purchase_order = PurchaseOrder.new(:sendLocation => current_user.location )
+    @purchase_order = PurchaseOrder.new(:sendLocation => current_user.location, :SubmitDate => Date.today )
   end
 
   # GET /purchase_orders/1/edit
