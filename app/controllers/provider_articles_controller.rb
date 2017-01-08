@@ -33,7 +33,7 @@ class ProviderArticlesController < ApplicationController
         current_created = CurrentProviderArticle.new(:articulo_id => @provider_article.articulo_id, :provider_id => @provider_article.provider_id,:provider_article_id => @provider_article.id, :enabled => true)
         current_created.save
 
-        format.html { redirect_to @provider_article, notice: 'Provider article was successfully created.' }
+        format.html { redirect_to @provider_article, notice: [ProviderArticle.model_name.human, t("succesfull_assigment") ].join(" ") }
         format.json { render :show, status: :created, location: @provider_article }
       else
         format.html { render :new }

@@ -8,8 +8,7 @@ class CreateInvoices < ActiveRecord::Migration
       t.references :purchase_order, index: true, foreign_key: true
       t.date :received_date
       #TODO set default :received_date to current date
-      t.date :payment_deadline
-      t.date :payment_date
+
 
       t.timestamps null: false
     end

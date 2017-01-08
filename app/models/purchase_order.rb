@@ -8,4 +8,17 @@ class PurchaseOrder < ActiveRecord::Base
   def article_number
     ItemPurchaseOrder.where(:purchase_order_id => self.id).size
   end
+
+  def status_human
+    case self.status
+      when 0
+        I18n.t("not_sent")
+      when 1
+        I18n.t("sent")
+    end
+  end
+
+  def editable
+    self.status == 0
+  end
 end

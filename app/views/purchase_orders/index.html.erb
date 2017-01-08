@@ -1,16 +1,16 @@
 <div class="container">
 
-  <h1>Listado de Ordenes de Compra</h1>
+  <h1><%=[(t "index_of"), PurchaseOrder.model_name.human(count: 2)].join(" ") %></h1>
 
-  <table id="purchase_orders" class="display">
+  <table id="purchase_orders" class="display" data-language='<%= datatable_language %>'>
     <thead>
     <tr>
-                <th>Usuario</th>
-                <th>Proveedor</th>
-                <th>Fecha de Creacion</th>
-                <th>Fecha de Envio</th>
-                <th>Estado</th>
-                <th>Monto Total</th>
+                <th><%= PurchaseOrder.human_attribute_name(:user_id) %></th>
+                <th><%= PurchaseOrder.human_attribute_name(:provider_id) %></th>
+                <th><%= PurchaseOrder.human_attribute_name(:created_at) %></th>
+                <th><%= PurchaseOrder.human_attribute_name(:send_date) %></th>
+                <th><%= PurchaseOrder.human_attribute_name(:status) %></th>
+                <th><%= PurchaseOrder.human_attribute_name(:total_amount) %></th>
             <!-- ver-->
       <th></th>
       <!-- editar-->
@@ -30,24 +30,24 @@
                 <td><%= purchase_order.user.email %></td>
                 <td><%= purchase_order.provider.name %></td>
                 <td  style="text-align: center"><%= purchase_order.created_at.strftime("%d/%m/%Y") %></td>
-                <td  style="text-align: center"><%= purchase_order.SubmitDate ? purchase_order.SubmitDate.strftime("%d/%m/%Y") : (button_to 'Enviar', sending_purchase_order_path(purchase_order), :data => { :confirm => '¿Seguro que desea enviar esta orden de compra? Despues no podra modificar esta orden'}, class: "btn btn-default", :method => :post)   %></td>
-                <td><%= purchase_order.Status %></td>
-                <td style="text-align: right"><%= number_to_currency(purchase_order.TotalAmount, precision: 0) %></td>
+                <td  style="text-align: center"><%= purchase_order.submit_date ? purchase_order.submit_date.strftime("%d/%m/%Y") : (button_to t("send"), sending_purchase_order_path(purchase_order), :data => { :confirm => '¿Seguro que desea enviar esta orden de compra? Despues no podra modificar esta orden'}, class: "btn btn-default", :method => :post)   %></td>
+                <td><%= purchase_order.status_human %></td>
+                <td style="text-align: right"><%= number_to_currency(purchase_order.total_amount, precision: 0) %></td>
 
       <td style="text-align: center">
-        <%= button_to 'Mostrar', purchase_order, class: "btn btn-default", :method => :get %>
+        <%= button_to t("show"), purchase_order, class: "btn btn-default", :method => :get %>
       </td>
-      <% if can? :update, @purchase_order and @editable%>
+      <% if (can? :update, @purchase_order) and purchase_order.editable %>
         <td style="text-align: center">
-          <%= button_to 'Editar', edit_purchase_order_path(purchase_order), class: "btn btn-default", :method => :get %>
+          <%= button_to t("edit"), edit_purchase_order_path(purchase_order), class: "btn btn-default", :method => :get %>
         </td>
       <% else %>
           <td></td>
       <% end %>
       <!-- Eliminar-->
-      <% if (can? :destroy,  @purchase_order) and @editable%>
+      <% if (can? :destroy,  @purchase_order) and purchase_order.editable %>
         <td style="text-align: center">
-          <%= button_to 'Eliminar', purchase_order, class: "btn btn-default", method: :delete, data: { confirm: '¿Esta seguro que desea eliminar esta orden de compra?' } %>
+          <%= button_to t("delete"), purchase_order, class: "btn btn-default", method: :delete, :title => [[(t "confirmation_dialog_title.delete"), (t "this_female"), PurchaseOrder.model_name.human].join(" "),"?"].join, :data => { confirm: (t "purchase_orders.delete_message"), commit: (t "confirm"), cancel: (t "cancel") }%>
         </td>
       <% else %>
         <td></td>

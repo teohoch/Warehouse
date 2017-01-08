@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160215185825) do
+ActiveRecord::Schema.define(version: 20170105002856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,8 +65,6 @@ ActiveRecord::Schema.define(version: 20160215185825) do
     t.string   "state"
     t.integer  "purchase_order_id"
     t.date     "received_date"
-    t.date     "payment_deadline"
-    t.date     "payment_date"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end
@@ -98,6 +96,19 @@ ActiveRecord::Schema.define(version: 20160215185825) do
     t.datetime "updated_at",      null: false
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.integer  "invoice_id"
+    t.date     "payment_due_date"
+    t.date     "payment_date"
+    t.integer  "amount"
+    t.string   "payment_method"
+    t.integer  "status",           default: 0
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "payments", ["invoice_id"], name: "index_payments_on_invoice_id", using: :btree
+
   create_table "provider_articles", force: :cascade do |t|
     t.integer  "provider_id"
     t.integer  "articulo_id"
@@ -123,16 +134,16 @@ ActiveRecord::Schema.define(version: 20160215185825) do
   end
 
   create_table "purchase_orders", force: :cascade do |t|
-    t.integer  "user_id",                              null: false
-    t.integer  "provider_id",                          null: false
-    t.date     "SubmitDate"
-    t.integer  "TotalAmount",   default: 0,            null: false
-    t.string   "Status",        default: "No Enviada", null: false
-    t.string   "paymentMethod", default: "",           null: false
-    t.string   "sendLocation",  default: "",           null: false
-    t.date     "sendDate",      default: '2015-09-01', null: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.integer  "user_id",                     null: false
+    t.integer  "provider_id",                 null: false
+    t.date     "submit_date"
+    t.integer  "total_amount",   default: 0,  null: false
+    t.integer  "status",         default: 0,  null: false
+    t.string   "payment_method", default: "", null: false
+    t.string   "send_location",  default: "", null: false
+    t.date     "send_date"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   add_index "purchase_orders", ["provider_id"], name: "index_purchase_orders_on_provider_id", using: :btree
@@ -199,6 +210,7 @@ ActiveRecord::Schema.define(version: 20160215185825) do
   add_foreign_key "invoices", "users"
   add_foreign_key "item_purchase_orders", "provider_articles"
   add_foreign_key "item_purchase_orders", "purchase_orders"
+  add_foreign_key "payments", "invoices"
   add_foreign_key "provider_articles", "articulos"
   add_foreign_key "provider_articles", "providers"
   add_foreign_key "purchase_orders", "providers"

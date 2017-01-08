@@ -49,9 +49,9 @@ class PurchaseOrderPdf < Prawn::Document
 
   def total_price
     move_down 15
-    text "Total.: #{price(@order.TotalAmount)}", size: 10, :align => :right
-    text "19% I.V.A.: #{price(@order.TotalAmount * 0.19)}", size: 10, :align => :right
-    text "Precio Total: #{price(@order.TotalAmount * 1.19)}", size: 16, style: :bold, :align => :right
+    text "Total.: #{price(@order.total_amount)}", size: 10, :align => :right
+    text "19% I.V.A.: #{price(@order.total_amount * 0.19)}", size: 10, :align => :right
+    text "Precio Total: #{price(@order.total_amount * 1.19)}", size: 16, style: :bold, :align => :right
   end
 
   def provider
@@ -68,7 +68,7 @@ class PurchaseOrderPdf < Prawn::Document
 
   def source
     move_down 5
-    data = [["Emitida por: \t", @order.user.name], ["Direccion de Envio:", @order.sendLocation], ["Forma de Pago: ", @order.paymentMethod], ["Fecha de entrega:", (@order.sendDate ? @order.sendDate.strftime("%d/%m/%Y")  : "")]]
+    data = [["Emitida por: \t", @order.user.name], ["Direccion de Envio:", @order.send_location], ["Forma de Pago: ", @order.payment_method], ["Fecha de entrega:", (@order.sendDate ? @order.sendDate.strftime("%d/%m/%Y")  : "")]]
 
     table data do
       row(0..3).columns(0..1).borders = []

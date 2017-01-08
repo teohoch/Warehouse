@@ -18,14 +18,13 @@
       <%= f.input :received_date, as: :string, label: "Fecha de Recepcion", readonly: true, :label_html =>{:class => "wide"}  %>
     </div>
 
-    <div class="row">
-      <%= f.input :payment_deadline, as: :string, label: "Fecha Limite de Pago", readonly: true, :label_html =>{:class => "wide"}  %>
-    </div>
 
     <%= f.simple_fields_for :invoice_items do |it| %>
         <%= @invoice_items%>
         <%= render 'items_invoice_edit', f: it %>
     <% end %>
+
+    <%=  link_to_add_fields "Agregar pagos", f, :payments, false, "add_payment" %>
 
     <div class="form-actions row">
       <div class="pull-right">

@@ -29,12 +29,12 @@ class PurchaseOrdersController < ApplicationController
 
   # GET /purchase_orders/new
   def new
-    @purchase_order = PurchaseOrder.new(:sendLocation => current_user.location )
+    @purchase_order = PurchaseOrder.new(:send_location => current_user.location )
   end
 
   # GET /purchase_orders/1/edit
   def edit
-    if @purchase_order.Status != "No Enviada"
+    if @purchase_order.status != "No Enviada"
       respond_to do |format|
         flash_message(:error, "¡Esta orden de compra ya ha sido enviada al proveedor, no puede ser modificada!")
         format.html { redirect_to @purchase_order}
@@ -48,12 +48,10 @@ class PurchaseOrdersController < ApplicationController
   # POST /purchase_orders
   # POST /purchase_orders.json
   def create
-
-    #TODO Change the way the total cost is calculated, currently is calculated client-side, move to server side
-
     provider_id = params[:purchase_order][:provider_id]
     items = params[:purchase_order][:item_purchase_orders_attributes]
     clean_items = Array.new
+    prepared_items = Array.new
     items_success = Array.new
     error = false
 
@@ -66,29 +64,36 @@ class PurchaseOrdersController < ApplicationController
     if clean_items.length > 0
       user_id = current_user.id
       provider_id = params[:purchase_order][:provider_id]
-      params[:purchase_order][:TotalAmount].slice!(0)
-      total_amount = params[:purchase_order][:TotalAmount].to_i
+      total_amount = 0
 
-      @purchase_order = PurchaseOrder.new(:user_id => user_id, :provider_id => provider_id, :TotalAmount => total_amount, :paymentMethod => params[:purchase_order][:paymentMethod], :sendLocation => params[:purchase_order][:sendLocation])
+      clean_items.each do |citem|
+        item = ProviderArticle.find(citem[:provider_article_id])
+        amount = citem[:amount].to_i
+        new_item = ItemPurchaseOrder.new(:provider_article_id => item.id,
+                                         :amount => amount,
+                                         :container_price => item.container_price,
+                                         :unit_price => item.unit_price,
+                                         :units_per_container => item.units_per_container,
+                                         :total_price => amount * item.container_price)
+        prepared_items.push(new_item)
 
+        total_amount = total_amount + (citem[:amount].to_i * item.container_price)
+      end
+
+      @purchase_order = PurchaseOrder.new(
+          :user_id => user_id,
+          :provider_id => provider_id,
+          :total_amount => total_amount,
+          :payment_method => params[:purchase_order][:payment_method],
+          :send_location => params[:purchase_order][:send_location])
 
 
       if @purchase_order.save
-        clean_items.each do |citem|
-          item = ProviderArticle.find(citem[:provider_article_id])
-          amount = citem[:amount].to_i
+        prepared_items.each do |pitem|
+          pitem.purchase_order_id = @purchase_order.id
 
-          item_total_amount = citem[:total_price]
-          item_total_amount.slice!(0)
-          item_total_amount = item_total_amount.to_i
-
-          new_item = ItemPurchaseOrder.new(:provider_article_id => item.id, :purchase_order_id => @purchase_order.id,
-                                           :amount => amount, :container_price => item.container_price,
-                                           :unit_price => item.unit_price,
-                                           :units_per_container => item.units_per_container,
-                                           :total_price => item_total_amount)
-          local_success = new_item.save
-          id_item = local_success ? new_item.id : nil
+          local_success = pitem.save
+          id_item = local_success ? pitem.id : nil
           items_success.push([local_success,id_item])
         end
       end
@@ -171,14 +176,14 @@ class PurchaseOrdersController < ApplicationController
         total_cost = total_cost + ProviderArticle.find(item[:provider_article_id]).container_price * item[:amount].to_i
       end
       # Update the total cost of the Purchase Order
-      @purchase_order.update(:TotalAmount => total_cost)
+      @purchase_order.update(:total_amount => total_cost)
 
       respond_to do |format|
         flash_message(:success, "Orden de compra actualizada con exito")
         format.html { redirect_to @purchase_order }
       end
     else
-      if @purchase_order.Status != "No Enviada"
+      if @purchase_order.status != "No Enviada"
         respond_to do |format|
           flash_message(:error, "¡Esta orden de compra ya ha sido enviada al proveedor, no puede ser modificada!")
           format.html { redirect_to @purchase_order}
@@ -189,7 +194,7 @@ class PurchaseOrdersController < ApplicationController
 
   def sending
     if @editable
-      @purchase_order.update(:Status => "Enviada", :SubmitDate => Date.today )
+      @purchase_order.update(:status => "Enviada", :submit_date => Date.today )
       redirect_to purchase_order_path(@purchase_order, format: :pdf)
     else
       respond_to do |format|
@@ -223,12 +228,12 @@ class PurchaseOrdersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_purchase_order
-      @purchase_order = PurchaseOrder.find(params[:id])
-      @editable = (@purchase_order.Status == "No Enviada")
+      purchase_order = PurchaseOrder.find(params[:id])
+      @editable = (purchase_order.status == "No Enviada")
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def purchase_order_params
-      params.require(:purchase_order).permit(:user_id, :provider_id, :SubmitDate, :TotalAmount)
+      params.require(:purchase_order).permit(:user_id, :provider_id, :submit_date, :total_amount)
     end
 end

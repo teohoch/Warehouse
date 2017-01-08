@@ -2,15 +2,15 @@
   <%= f.error_notification %>
 
     <div class="row">
-      <%= f.input :sendLocation, label: "Direccion de envio",:label_html =>{:class => "wide"} %>
+      <%= f.input :send_location, label: "Direccion de envio", :label_html =>{:class => "wide"} %>
     </div>
 
     <div class="row">
-      <%= f.input :paymentMethod, label: "Metodo de Pago", :label_html =>{:class => "wide"} %>
+      <%= f.input :payment_method, label: "Metodo de Pago", :label_html =>{:class => "wide"} %>
     </div>
 
     <div class="row">
-      <%= f.input :sendDate, as: :string, label: "Fecha de Entrega", :label_html =>{:class => "wide"} %>
+      <%= f.input :send_date, as: :string, label: "Fecha de Entrega", :label_html =>{:class => "wide"} %>
     </div>
 
     <div class="row">
@@ -25,7 +25,7 @@
 
     <div class="row">
       <div class="col-md-3 pull-right">
-        <%= f.input :TotalAmount, as: :string, label: "Total", readonly: true, :wrapper_html =>{ :style => "text-align: center; display: none", :id => "order_total_wrap"}%>
+        <%= f.input :total_amount, as: :string, label: "Total", readonly: true, :wrapper_html =>{:style => "text-align: center; display: none", :id => "order_total_wrap"}%>
       </div>
     </div>
     <br>

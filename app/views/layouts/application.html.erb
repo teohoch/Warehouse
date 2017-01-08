@@ -11,44 +11,44 @@
 
           <%= nav_bar fixed: :top, brand: "Warehouse 1.0", responsive: true, fluid: true do %>
             <%= menu_group do %>
-                <%= menu_item "Home", root_path %>
+                <%= menu_item (t "header.home"), root_path %>
                 <%= menu_divider %>
                 <% if user_signed_in? %>
 
     <!--DropDown para Usuario Interno-->
                     <% if current_user.has_role? :internal %>
-                        <%= menu_item "Uso de Suministros", root_path %>
-                        <%= menu_item "Generar envio a Sucursal", root_path %>
-                        <%= drop_down "Stocks Ideales" do %>
-                            <%= menu_item "Establecer Stock Ideal Bodega", root_path %>
-                            <%= menu_item "Establecer Stock Ideal Sucursal", root_path %>
+                        <%= menu_item (t "header.supply_use"), root_path %>
+                        <%= menu_item (t "header.generate_shippment"), root_path %>
+                        <%= drop_down (t "header.ideal_stocks") do %>
+                            <%= menu_item (t "header.set_ideal_stock_ware"), root_path %>
+                            <%= menu_item (t "header.set_ideal_stock_branch"), root_path %>
                         <% end %>
-                        <%= drop_down "Stocks Ideales" do %>
-                            <%= menu_item "Generar Orden de Compra Por Bodega", root_path %>
-                            <%= menu_item "Generar Orden de Compra Por Proveedor", root_path %>
+                        <%= drop_down t ("header.ideal_stocks") do %>
+                            <%= menu_item (t "header.generate_ware_purchase_order"), root_path %>
+                            <%= menu_item (t "header.generate_provider_purchase_order"), root_path %>
                         <% end %>
-                        <%= drop_down "Facturas" do %>
+                        <%= drop_down (t "header.invoice")  do %>
 
-                            <%= menu_item "Ingresar Factura", root_path %>
-                            <%= menu_item "Pagar Factura", root_path %>
+                            <%= menu_item (t "header.add_invoice"), root_path %>
+                            <%= menu_item (t "header.pay_invoice"), root_path %>
                         <% end %>
                     <% end %>
 
 
     <!--DropDown para Administrados-->
                     <% if current_user.has_role? :admin %>
-                        <%= drop_down "Administrador" do %>
-                            <%= menu_item "Crear Nuevo Usuario", new_user_registration_path %>
-                            <%= menu_item "Crear Nueva Bodega", new_bodega_path %>
-                            <%= menu_item "Crear Nuevo Articulo", new_articulo_path %>
+                        <%= drop_down (t "header.administrator") do %>
+                            <%= menu_item (t "header.create_user"), new_user_registration_path %>
+                            <%= menu_item (t "header.create_ware"), new_bodega_path %>
+                            <%= menu_item (t "header.create_article"), new_articulo_path %>
                         <% end %>
                     <% end %>
-                    <%= drop_down "Listados" do %>
-                        <%= menu_item "Bodegas", bodegas_path %>
-                        <%= menu_item "Articulos", articulos_path %>
-                        <%= menu_item "Proveedores", providers_path %>
-                        <%= menu_item "Disponibilidad de Articulos", provider_articles_path %>
-                        <%= menu_item "Ordenes de Compra", purchase_orders_path %>
+                    <%= drop_down (t "header.indices") do %>
+                        <%= menu_item (t "header.ware"), bodegas_path %>
+                        <%= menu_item (t "header.articles"), articulos_path %>
+                        <%= menu_item (t "header.providers"), providers_path %>
+                        <%= menu_item (t "header.article_provider"), provider_articles_path %>
+                        <%= menu_item (t "header.purchase_orders"), purchase_orders_path %>
                     <% end %>
                 <% end %>
             <% end %>

@@ -1,0 +1,19 @@
+<div class="form-inputs row">
+
+  <div class="col-md-2">
+    <%= f.input :payment_due_date, as: :string, label: Payment.human_attribute_name(:payment_due_date), readonly: true  %>
+  </div>
+  <div class="col-md-2">
+    <%= f.input :amount, label: Payment.human_attribute_name(:amount),:input_html => { :style => "text-align: center"}%>
+  </div>
+  <div class="col-md-2">
+    <%= f.input :payment_method, label: Payment.human_attribute_name(:payment_method), :input_html => { :style => "text-align: center"} %>
+  </div>
+
+  <div class="col-md-1">
+    <%= f.hidden_field :_destroy %>
+    <%= link_to '#', class: "btn btn-default remove_fields", :style => "margin-top: 20px; margin-left: 0px" do %>
+        <i class="glyphicon glyphicon-remove"></i>
+    <% end %>
+  </div>
+</div>

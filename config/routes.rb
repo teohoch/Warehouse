@@ -1,17 +1,17 @@
 Rails.application.routes.draw do
-
-  resources :invoices, :except => [:new] do
-    post 'new', on: :collection, as: 'new'
-  end
-  resources :purchase_orders do
-    member do
-      post 'sending'
+  scope ":locale", locale: /#{I18n.available_locales.join("|")}/ do
+    resources :invoices, :except => [:new] do
+      post 'new', on: :collection, as: 'new'
     end
-  end
-  resources :provider_articles, only: [:index, :show, :edit, :destroy]
-  resources :bodegas
-  resources :articulos
-  resources :providers do
+    resources :purchase_orders do
+      member do
+        post 'sending'
+      end
+    end
+    resources :provider_articles, only: [:index, :show, :edit, :destroy]
+    resources :bodegas
+    resources :articulos
+    resources :providers do
       member do
         get "select_add_multiple_articles"
         post "input_add_multiple_articles"
@@ -21,65 +21,18 @@ Rails.application.routes.draw do
         post "remove_multiple_articles"
       end
 
+    end
+    devise_for :users, controllers: { sessions: "users/sessions", :registrations => "users/registrations"}
+
+    get 'welcome/index'
+
+    get 'welcome/show'
+
+    root 'welcome#index'
+
   end
-  devise_for :users, controllers: { sessions: "users/sessions", :registrations => "users/registrations"}
+  match '*path', to: redirect("/#{I18n.default_locale}/%{path}"), constraints: lambda { |req| !req.path.starts_with? "/#{I18n.default_locale}/" }, via: :all
+  match '', to: redirect("/#{I18n.default_locale}"), via: :all
 
-  get 'welcome/index'
 
-  get 'welcome/show'
-
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  root 'welcome#index'
-
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
 end

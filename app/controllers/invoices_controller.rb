@@ -31,7 +31,6 @@ class InvoicesController < ApplicationController
   # POST /invoices
   # POST /invoices.json
   def create
-    khkjhjh
     @invoice = Invoice.new(invoice_params)
 
     respond_to do |format|

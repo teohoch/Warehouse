@@ -1,36 +1,36 @@
 <div class="container">
     <p>
-      <strong>Usuario Creador:</strong>
-      <%= @purchase_order.user.email %>
+      <strong><%== PurchaseOrder.human_attribute_name(:user_id) %>:</strong>
+      <%= @purchase_order.user.name %>
     </p>
 
     <p>
-      <strong>Proveedor:</strong>
+      <strong><%== PurchaseOrder.human_attribute_name(:provider_id) %>:</strong>
       <%= @purchase_order.provider.name %>
     </p>
 
     <p>
-      <strong>Fecha de Envio:</strong>
-      <% if @purchase_order.SubmitDate == nil %>
-        <%= "No enviada" %>
+      <strong><%== PurchaseOrder.human_attribute_name(:submit_date) %>:</strong>
+      <% if @purchase_order.submit_date == nil %>
+        <%= "---" %>
       <% else %>
-          <%= @purchase_order.SubmitDate.strftime("%d/%m/%Y") %>
+          <%= @purchase_order.submit_date.strftime("%d/%m/%Y") %>
       <% end %>
     </p>
 
     <p>
-        <strong>Estado:</strong>
-        <%= @purchase_order.Status %>
+        <strong><%== PurchaseOrder.human_attribute_name(:status) %>:</strong>
+        <%= @purchase_order.status_human %>
     </p>
 
     <p>
-      <strong>Costo Total:</strong>
-      <%= number_to_currency(@purchase_order.TotalAmount, :precision => 0)%>
+      <strong><%== PurchaseOrder.human_attribute_name(:total_amount) %>:</strong>
+      <%= number_to_currency(@purchase_order.total_amount, :precision => 0)%>
     </p>
 
     <br/>
 
-  <h3>Articulos en la Orden de Compra</h3>
+  <h3><%== Articles%>Articulos en la Orden de Compra</h3>
 
   <table id="purchase_orders" class="display">
     <thead>

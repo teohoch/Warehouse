@@ -22,10 +22,109 @@
 
 en:
   hello: "Hello world"
-  invalid_rut: "Rut Invalido"
-  invalid_blank: "Este campo no puede estar vacio."
+  invalid_rut: "Invalid RUT"
+  invalid_blank: "This field cannot be empty."
+  pending: "Pending"
+  paid: "Paid"
+  overdue: "Overdue"
+  index_of: "Index of"
+
+  succesfull_creation: "was created succesfully"
+  succesfull_assigment: "was assigned succesfully"
+  create_new: "Create new"
+
+  sent: "Sent"
+  not_sent: "Not Sent"
+
+  user: "User"
+  this_male: "this"
+  this_female: "this"
+
+
+
+  send: "Send"
+  show: "Show"
+  edit: "Edit"
+  delete: "Delete"
+  confirm: "Confirm"
+  cancel: "Cancel"
+
+  header:
+    home: "Home"
+    supply_use: "Supply usage"
+    generate_shippment: "Generate shippment to branch"
+    ideal_stocks: "Ideal Stocks"
+    set_ideal_stock_ware: "Set ideal warehouse stock"
+    set_ideal_stock_branch: "Set ideal branch stock"
+    generate_ware_purchase_order: "Generate purchase order by Warehouse"
+    generate_provider_purchase_order: "Generate purchase order by Provider"
+    invoice: "Invoices"
+    add_invoice: "Add Invoice"
+    pay_invoice: "Pay Invoice"
+
+    administrator: "Administrator"
+    create_user: "Create user"
+    create_ware: "Create Warehouse"
+    create_article: "Create Article"
+    indices: "Indexes"
+    ware: "Warehouses"
+    articles: "Articles"
+    providers: "Providers"
+    article_provider: "Article Availability"
+    purchase_orders: "Purchase Orders"
+
+  confirmation_dialog_title:
+      delete: "Are you sure you want to delete"
+      update: "Are you sure you want to modify"
+      create: "Are you sure you want to create a new"
+
+  purchase_orders:
+    delete_message: "Are you sure you want to delete this purchase order?"
+
+
+
+
 
   helpers:
       submit:
-        create: "Crear"
-        update: "Confirmar cambios"
+        create: "Create"
+        update: "Confirm changes"
+
+  activerecord:
+    models:
+      provider_article: "Article Availability"
+      purchase_order:
+        one: "Purchase Order"
+        other: "Purchase Orders"
+      provider:
+        one: "Provider"
+        other: "Providers"
+      payment:
+              one: "Payment"
+              other: "Payment"
+    attributes:
+      provider_article:
+        unit_price: "Unitary Price"
+      provider:
+        name: "Name"
+        address: "Address"
+        phone: "Phone"
+        rut: "RUT"
+        created_at: "Creation Date"
+        updatet_at: "Last Updated"
+      payment:
+        payment_due_date: "Payment due date"
+        payment_date: "Payment date"
+        amount: "Amount"
+        payment_method: "Payment method"
+        status: "Status"
+
+      purchase_order:
+              user_id: "Creator user"
+              provider_id: "Provider"
+              created_at: "Creation Date"
+              send_date: "Send Date"
+              status: "Status"
+              total_amount: "Total Amount"
+
+

@@ -21,17 +21,133 @@
 
 
 es:
-  hello: "Hola Munt"
+  welcome: "¡Bienvenido a Warehouse 1.0!"
   invalid_rut: "Rut Invalido"
   invalid_blank: "Este campo no puede estar vacio."
+  pending: "Pendiente"
+  paid: "Pagado"
+  overdue: "Atrasado"
+  index_of: "Listado de"
+
+  succesfull_creation: "fue creado exitosamente"
+  succesfull_assigment: "was assigned succesfully"
+  create_new: "Crear nuevo"
+
+  sent: "Enviada"
+  not_sent: "No Enviada"
+
+  send: "Enviar"
+  show: "Mostrar"
+  edit: "Editar"
+  delete: "Eliminar"
+  confirm: "Confirmar"
+  cancel: "Cancelar"
+
+  user: "Usuario"
+  this_male: "este"
+  this_female: "esta"
 
   helpers:
       submit:
         create: "Crear"
         update: "Confirmar cambios"
 
+
   date:
     order:
       - :day
       - :month
       - :year
+
+  header:
+      home: "Inicio"
+      supply_use: "Uso de Suministros"
+      generate_shippment: "Generar envio a Sucursal"
+      ideal_stocks: "Stocks Ideales"
+      set_ideal_stock_ware: "Establecer Stock Ideal Bodega"
+      set_ideal_stock_branch: "Establecer Stock Ideal Sucursal"
+      generate_ware_purchase_order: "Generar Orden de Compra por Bodega"
+      generate_provider_purchase_order: "Generar orden de compra por proveedor"
+      invoice: "Facturas"
+      add_invoice: "Agregar Factura"
+      pay_invoice: "Pagar Factura"
+
+      administrator: "Administrador"
+      create_user: "Crear usuario"
+      create_ware: "Crear bodega"
+      create_article: "Crear Articulo"
+      indices: "Listados"
+      ware: "Bodegas"
+      articles: "Articulos"
+      providers: "Proveedores"
+      article_provider: "Disponibilidad de Articulos"
+      purchase_orders: "Ordenes de Compra"
+
+  confirmation_dialog_title:
+        delete: "¿Esta seguro que desea eliminar"
+        update: "¿Esta seguro que desea modificar"
+        create: "¿Esta seguro que desea crear"
+
+  purchase_orders:
+      delete_message: "¿Esta seguro que desea eliminar esta orden de compra?"
+
+  activerecord:
+    models:
+      provider_article: "Article Availability"
+      purchase_order:
+        one: "Orden de Compra"
+        other: "Ordenes de Compra"
+      provider:
+        one: "Proveedor"
+        other: "Proveedores"
+      payment:
+        one: "Pago"
+        other: "Pagos"
+
+    attributes:
+      provider_article:
+        unit_price: "Precio Unitario"
+      provider:
+        name: "Nombre"
+        address: "Direccion"
+        phone: "Telefono"
+        rut: "RUT"
+        created_at: "Fecha Creacion"
+        updatet_at: "Ultima Actualizacion"
+      payment:
+        payment_due_date: "Fecha limite de Pago"
+        payment_date: "Fecha de Pago"
+        amount: "Monto"
+        payment_method: "Medio de Pago"
+        status: "Estado"
+      purchase_order:
+        user_id: "Usuario emisor"
+        provider_id: "Proveedor"
+        created_at: "Fecha Creacion"
+        send_date: "Fecha Envio"
+        status: "Estado"
+        total_amount: "Monto Total"
+
+
+
+
+  table_text:
+      sProcessing:      "Procesando..."
+      sLengthMenu:      "Mostrar _MENU_ registros"
+      sZeroRecords:    "No se encontraron resultados"
+      sEmptyTable:      "Ningún dato disponible en esta tabla"
+      sInfo:           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros"
+      sInfoEmpty:      "Mostrando registros del 0 al 0 de un total de 0 registros"
+      sInfoFiltered:   "(filtrado de un total de _MAX_ registros)"
+      sInfoPostFix:    ""
+      sSearch:         "Buscar:"
+      sUrl:            ""
+      sInfoThousands:  ","
+      sLoadingRecords: "Cargando..."
+      sFirst:          "Primero"
+      sLast:           "Último"
+      sNext:           "Siguiente"
+      sPrevious:       "Anterior"
+      sSortAscending:  ": Activar para ordenar la columna de manera ascendente"
+      sSortDescending: ": Activar para ordenar la columna de manera descendente"
+
